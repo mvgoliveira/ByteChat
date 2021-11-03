@@ -1,9 +1,10 @@
+import Global_header from "styles/globalheader";
 
-function home_page() {
+
+function Home_page() {
+
     return (
-        <div>
-            <h1>Hello World</h1>
-        </div>
+       <Global_header/>
     )
 }
-export default home_page;
+export default Home_page;

@@ -2,6 +2,22 @@
     font-family: 'Roboto', sans-serif;
 }
 
+/* GLOBALHEADER, LOGIN AND REGISTER PAGE*/
+.header {
+    display: inline-flex;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    justify-content: end;
+  }
+
+.themebutton {
+    margin: 30px;
+    height: 60px;
+    width: 60px;
+}
+
 body {
     background-color: #FAFAFA;
     font-family: 'Roboto';
@@ -35,7 +51,7 @@ body {
 }
 
 .login_image {
-    
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -135,3 +151,122 @@ a {
     color: #E1BEE7;
     text-decoration: none
 }
+
+/* VIDEOCHAT PAGE */
+
+.videochat_page {
+    background-color: #141e2e;
+    display: inline-flex;
+    width: 100%;
+    height: 100vh;
+    margin: 0px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.card {
+    background-color: #222C3B;
+    width: 500px;
+    height: 300px;
+    margin: 0px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+}
+
+.footer {
+    display: inline-flex;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    margin-bottom: 90px;
+    justify-content: center;
+  }
+
+.iconbutton {
+    background-color: #222C3B;
+    height: 40px;
+    width: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 15px;
+    margin-inline: 25px;
+}
+
+.iconbutton:active {
+    transform: scale(0.98);
+}
+
+.iconbutton:hover {
+    background-color: #1632A2;
+}
+
+.callbutton {
+    background-color: red;
+    height: 40px;
+    width: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 15px;
+    margin-inline: 25px;
+}
+
+.callbutton:active {
+    transform: scale(0.98);
+    src: local('C:/Users/Guilherme/Documents/ByteChat/frontend/src/illustrations/Mic_off.svg');
+}
+
+.callbutton:hover {
+    transform: scale(1.02);
+}
+
+.micbutton {
+    background-color: #222C3B;
+    color: black;
+    height: 40px;
+    width: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 15px;
+    margin-inline: 25px;
+}
+
+.micbutton:active {
+    transform: scale(0.98);
+}
+
+.micbutton:hover {
+    background-color: #1632A2;
+}
+
+.copybutton {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222C3B;
+    color: #FAFAFA;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 15px;
+    margin-inline: 25px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.imgcopy {
+    height: 40px;
+    width: 40px;
+    border-radius: 5px;
+    margin-left: 20px;
+}
+
+.copybutton:active {
+    transform: scale(0.98);
+}
+
+.copybutton:hover {
+    background-color: #1632A2;
+}
+
