@@ -8,6 +8,10 @@ export function Home() {
       <h1>
         Home
       </h1>
+
+      <p>
+        Parágrafo 1
+      </p>
     </Container>
   );
 }
