@@ -13,6 +13,7 @@ dotenv.config();
 const app = express();
 app.use(cors());
 const http = createServer(app);
+const peer = ExpressPeerServer(http);
 
 const io = new Server(http, {
   cors: {
