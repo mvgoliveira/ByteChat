@@ -1,29 +1,29 @@
 import { createContext, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 
-export const AuthContext = createContext();
+export const AuthContext = createContext({});
 
 export function AuthContextProvider(props) {
-  const [username, setUsername] = useState("");
+  const [clientUsername, setClientUsername] = useState("");
   const [clientMediaStream, setClientMediaStream] = useState(null);
-  const [userPeer, setUserPeer] = useState(null); 
-  const [cookies, setCookies] = useCookies(['username']);
+  const [clientPeer, setClientPeer] = useState(null); 
+  const [cookies, setCookies] = useCookies(['clientUsername']);
 
   useEffect(() => {
-    if (cookies.username !== undefined) {
-      setUsername(cookies.username);
+    if (cookies.clientUsername !== undefined) {
+      setClientUsername(cookies.clientUsername);
     }
-  }, [cookies.username])
+  }, [cookies.clientUsername])
 
-  function login(username) {
-    setUsername(username);
-    setCookies('username', username);
+  function login(clientUsername) {
+    setClientUsername(clientUsername);
+    setCookies('clientUsername', clientUsername);
     return;
   }
 
   function logout() {
-    setUsername("");
-    setCookies('username', "");
+    setClientUsername("");
+    setCookies('clientUsername', "");
     return;
   }
 
@@ -31,19 +31,19 @@ export function AuthContextProvider(props) {
     setClientMediaStream(stream);
   }
 
-  function addUserPeer(peer) {
-    setUserPeer(peer);
+  function addClientPeer(peer) {
+    setClientPeer(peer);
   }
 
   return (
     <AuthContext.Provider value={{ 
-      username, 
+      clientUsername, 
       login, 
       logout, 
       clientMediaStream, 
       addClientMediaStream, 
-      userPeer, 
-      addUserPeer 
+      clientPeer, 
+      addClientPeer 
     }}>
       { props.children }
     </AuthContext.Provider>
