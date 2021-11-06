@@ -12,8 +12,28 @@ export function Home() {
   const history = useHistory();
   
   const { 
-    login
+    login, 
+    clientMediaStream, 
+    addClientMediaStream, 
+    clientPeer, 
+    addClientPeer 
   } = useAuth();
+
+  useEffect(() => {
+    if (clientMediaStream !== null) {
+      clientMediaStream.getTracks().forEach(function(track) {
+        track.stop();
+      });
+
+      addClientMediaStream(null);
+    }
+
+    if (clientPeer !== null) {
+      clientPeer.disconnect();
+      addClientPeer(null);
+    }
+    
+  }, [clientMediaStream, clientPeer])
 
   function handleRoomIDInputChange(event) {
     setRoomId(event.currentTarget.value);

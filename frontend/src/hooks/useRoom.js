@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import Peer from "peerjs";
 
 import { createSocket } from "../services/socket";
@@ -7,7 +8,10 @@ import { useAuth } from "./useAuth";
 
 export function useRoom(roomId) {
   const [socket, setSocket] = useState(null);
+  const history = useHistory();
+  
   const {
+    logout,
     clientUsername, 
     clientMediaStream, 
     addClientMediaStream, 
@@ -77,6 +81,18 @@ export function useRoom(roomId) {
           }
         });
       });
+
+      socket.on("user-disconnected", (socketId) => {
+        removeVideo(socketId);
+      });
+
+      peer.on("disconnected", () => {   
+        socket.disconnect();
+      });
+
+      socket.on("find-room-by-socketID", (socketId) => {
+        socket.emit("disconnect-user", {socketId, roomId});
+      });
     }
   }, [clientMediaStream, socket]);
 
@@ -104,6 +120,26 @@ export function useRoom(roomId) {
       })
     }
   }
+
+  function removeVideo(socketId) {       
+    if (socketId !== null) {  
+      const video = document.getElementById("VIDEO-CONTAINER-" + socketId);
+      if (video) {
+        video.remove();
+      }
+    } 
+  }
+
+  async function disconnect() {
+    logout();
+
+    clientMediaStream.getTracks().forEach(function(track) {
+      track.stop();
+    });
+
+    clientPeer.disconnect();
+    history.replace("/");
+  }
   
-  return {}
+  return { disconnect }
 }
