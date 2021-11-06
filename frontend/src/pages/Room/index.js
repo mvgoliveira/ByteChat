@@ -3,6 +3,7 @@ import { Container } from "./styles";
 
 export function Room({match}) {
   const {params: { roomId }} = match;
+  const {} = useRoom(roomId);
 
   return (
     <Container>
