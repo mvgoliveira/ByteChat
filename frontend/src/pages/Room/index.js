@@ -3,7 +3,7 @@ import { Container } from "./styles";
 
 export function Room({match}) {
   const {params: { roomId }} = match;
-  const {disconnect} = useRoom(roomId);
+  const {disconnect, toggleMic, toggleVideo} = useRoom(roomId);
 
   return (
     <Container>
@@ -14,8 +14,8 @@ export function Room({match}) {
       </div>
 
       <div className="controllers">
-        <button onClick={null}>Close Video</button>
-        <button onClick={null}>Close Audio</button>
+        <button onClick={toggleVideo}>Close Video</button>
+        <button onClick={toggleMic}>Close Audio</button>
       </div>
     </Container>
   );

@@ -9,6 +9,9 @@ import { useAuth } from "./useAuth";
 export function useRoom(roomId) {
   const [socket, setSocket] = useState(null);
   const history = useHistory();
+
+  const [isMicOpen, setIsMicOpen] = useState(true);
+  const [isVideoOpen, setIsVideoOpen] = useState(true);
   
   const {
     logout,
@@ -140,6 +143,28 @@ export function useRoom(roomId) {
     clientPeer.disconnect();
     history.replace("/");
   }
+
+  function toggleMic() {    
+    setIsMicOpen(!isMicOpen);
+  }
+
+  function toggleVideo() {
+    setIsVideoOpen(!isVideoOpen);
+  }
+
+  useEffect(() => {
+    if (clientMediaStream) {
+      clientMediaStream.getAudioTracks()[0].enabled = isMicOpen;
+      clientMediaStream.getVideoTracks()[0].enabled = isVideoOpen;
+    }
+  }, [clientMediaStream, isMicOpen, isVideoOpen]);
+
+  useEffect(() => {
+    if (clientMediaStream) {
+      clientMediaStream.getAudioTracks()[0].enabled = isMicOpen;
+      clientMediaStream.getVideoTracks()[0].enabled = isVideoOpen;
+    }
+  }, [clientMediaStream, isMicOpen, isVideoOpen])
   
-  return { disconnect }
+  return { disconnect, toggleMic, toggleVideo }
 }
