@@ -1,3 +1,4 @@
+import { useRoom } from "../../hooks/useRoom";
 import { Container } from "./styles";
 
 export function Room({match}) {

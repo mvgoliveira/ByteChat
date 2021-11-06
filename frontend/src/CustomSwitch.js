@@ -3,7 +3,7 @@ import { GlobalStyle } from './styles/global';
 
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
-import { Room } from './pages/room';
+import { Room } from './pages/Room';
 
 export function CustomSwitch() {
   return (
