@@ -1,0 +1,107 @@
+* {
+    margin: 0;
+}
+
+.body {
+    margin: 0px;
+    height: 100vh;
+    flex-direction: column;
+    background-color: #141e2e;
+}
+
+.up {
+    background-color: #141e2e;
+    display: flex;
+    width: 100%;
+    height: 75vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    background-color: #222C3B;
+    width: 500px;
+    height: 300px;
+    margin: 0px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+}
+
+.down {
+    display: flex;
+    width: 100%;
+    min-width: 722px;
+    height: 25vh;
+    align-items: center;
+    justify-content: center;
+  }
+
+.buttons {
+    background-color: #222C3B;
+    color: white;
+    height: 40px;
+    width: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 15px;
+    margin-inline: 25px;
+    align-items: stretch;
+    justify-content: center;}
+
+.buttons:active {
+    transform: scale(0.98);
+}
+
+.buttons:hover {
+    background-color: #1632A2;
+}
+
+.callbutton {
+    background-color: red;
+    color: white;
+    height: 40px;
+    width: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 15px;
+    margin-inline: 25px;
+}
+
+.callbutton:active {
+    transform: scale(0.98);
+}
+
+.callbutton:hover {
+    transform: scale(1.02);
+}
+
+.copybutton {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222C3B;
+    color: white;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 15px;
+    margin-inline: 25px;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 20px;
+}
+
+.copybutton:active {
+    transform: scale(0.98);
+}
+
+.copybutton:hover {
+    background-color: #1632A2;
+}
+
+.iconcopy {
+    height: 40px;
+    width: 40px;
+    margin-left: 20px;
+}
