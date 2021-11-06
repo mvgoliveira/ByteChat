@@ -1,11 +1,14 @@
 import { BrowserRouter } from "react-router-dom";
 import { CustomSwitch } from './CustomSwitch';
+import { AuthContextProvider } from './contexts/AuthContext';
 
 function App() {
   return (
-    <BrowserRouter>
-      <CustomSwitch/>
-    </BrowserRouter>
+    <AuthContextProvider>
+      <BrowserRouter>
+        <CustomSwitch/>
+      </BrowserRouter>
+    </AuthContextProvider>
   );
 }
 
