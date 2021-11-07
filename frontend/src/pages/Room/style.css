@@ -9,19 +9,16 @@
 
 .up {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     flex: 1;
-    background-color: aqua;
+    /* background-color: aqua; */
 }
 
 .video-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
     gap: 15px;
-    background: #1632A2;
 }
 
 .video-container {
@@ -37,10 +34,8 @@
     flex: 1;
     width: 100%;
     min-width: 722px;
-    height: 200px;
-    max-height: 200px;
-    background-color: tomato;
-    align-items: center;
+    max-height: 120px;
+    align-items: flex-start;
     justify-content: center;
 }
 
@@ -72,12 +67,15 @@
 .callbutton {
     background-color: red;
     color: white;
-    height: 40px;
-    width: 40px;
     border-radius: 5px;
     cursor: pointer;
     padding: 15px;
     margin-inline: 25px;
+}
+
+.callbuttonIcon {
+    height: 25px;
+    width: 25px;
 }
 
 .callbutton:active {

@@ -27,6 +27,12 @@ export function Room() {
           <div className="video-container"></div>
           <div className="video-container"></div>
           <div className="video-container"></div>
+          <div className="video-container"></div>
+          <div className="video-container"></div>
+          <div className="video-container"></div>
+          <div className="video-container"></div>
+          <div className="video-container"></div>
+          <div className="video-container"></div>
         </div>
       </div>
       
@@ -35,8 +41,8 @@ export function Room() {
         <button onClick={toggleMic} className="buttons">{appState.mute ? <BsFillMicFill className="button-icon"/> : <BsFillMicMuteFill className="button-icon"/>}</button>
         <button onClick={toggleCam} className="buttons">{appState.cam ? <BsFillCameraVideoFill className="button-icon"/> : <BsFillCameraVideoOffFill className="button-icon"/>}</button>
         <button className="buttons"><BsFillChatLeftFill className="button-icon"/></button>
+        <button className="callbutton"><FiPhoneOff className="callbuttonIcon"/></button>
         
-        <FiPhoneOff className="callbutton"/>
       </div>
 
       <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
