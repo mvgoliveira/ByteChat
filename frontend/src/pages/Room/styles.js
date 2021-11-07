@@ -10,6 +10,10 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   background-color: #141E2E;
+
+  .select-container {
+    width: 250px;
+  }
   
   .videos_group {
     flex-grow: 0.6;
@@ -64,23 +68,26 @@ export const Container = styled.div`
     display: inline-block;
     border: none;
     border-radius: 8px;
-    padding: 1rem 2rem;
+    padding: 1rem 1.3rem;
     margin: 0;
     text-decoration: none;
     background: #273547;
     color: #ffffff;
-    font-family: sans-serif;
-    font-size: 1rem;
     cursor: pointer;
-    text-align: center;
     transition: background 250ms ease-in-out, transform 150ms ease;
     -webkit-appearance: none;
     -moz-appearance: none;
+
+    svg {
+      margin-top: 5px;
+      width: 24px;
+      height: 24px;
+    }
   }
 
   button:hover,
   button:focus {
-      background: #0053ba;
+    background: #0053ba;
   }
 
   button:focus {

@@ -9,12 +9,12 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
+    console.log("DESCONECTADO ", socket.id);
     io.emit("find-room-by-socketID", socket.id);
   });
 
-  socket.on("disconnect-user", ({socketId, roomId}) => {
+  socket.on("disconnect-user", ({socketId, roomId}) => {    
     console.log("DESCONECTANDO ", socketId);
-    
     io.to(roomId).emit("user-disconnected", socketId);
   });
 });
