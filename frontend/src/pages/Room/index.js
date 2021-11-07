@@ -13,25 +13,29 @@ export function Room() {
   const appState = useContext(AppStateContext);
   
   function toggleMic() {
-      appState.setMute(!appState.mute);
+    appState.setMute(!appState.mute);
   }
 
   function toggleCam() {
-      appState.setVisible(!appState.cam);
+    appState.setVisible(!appState.cam);
   }
 
   return (
     <body className="body">
       <div className="up">
-        <div>
-          <p className="card"></p>
+        <div className="video-grid">
+          <div className="video-container"></div>
+          <div className="video-container"></div>
+          <div className="video-container"></div>
         </div>
       </div>
+      
       <div className="down">
-        <p className="copybutton">Copiar Link<MdOutlineContentCopy className="iconcopy"/></p>
-        <p onClick={toggleMic}>{appState.mute ? <BsFillMicFill className="buttons"/> : <BsFillMicMuteFill className="buttons"/>}</p>
-        <p onClick={toggleCam}>{appState.cam ? <BsFillCameraVideoFill className="buttons"/> : <BsFillCameraVideoOffFill className="buttons"/>}</p>
-        <BsFillChatLeftFill className="buttons"/>
+        <button className="copybutton">Copiar Link<MdOutlineContentCopy className="iconcopy"/></button>
+        <button onClick={toggleMic} className="buttons">{appState.mute ? <BsFillMicFill className="button-icon"/> : <BsFillMicMuteFill className="button-icon"/>}</button>
+        <button onClick={toggleCam} className="buttons">{appState.cam ? <BsFillCameraVideoFill className="button-icon"/> : <BsFillCameraVideoOffFill className="button-icon"/>}</button>
+        <button className="buttons"><BsFillChatLeftFill className="button-icon"/></button>
+        
         <FiPhoneOff className="callbutton"/>
       </div>
 

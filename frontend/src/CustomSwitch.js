@@ -3,10 +3,12 @@ import { Home } from './pages/Home/index.js';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { Room } from './pages/Room';
+import { GlobalStyle } from './styles/global';
 
 export function CustomSwitch() {
   return (
     <> 
+      <GlobalStyle/>
       <Switch>
         <Route path="/" exact component={Home}/>
         <Route path="/login" component={Login}/>

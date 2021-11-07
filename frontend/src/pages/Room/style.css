@@ -1,53 +1,65 @@
-* {
-    margin: 0;
-}
-
 .body {
+    display: flex;
     margin: 0px;
     height: 100vh;
     flex-direction: column;
+    justify-content: center;
     background-color: #141e2e;
 }
 
 .up {
-    background-color: #141e2e;
     display: flex;
-    width: 100%;
-    height: 75vh;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    flex: 1;
+    background-color: aqua;
 }
 
-.card {
+.video-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 15px;
+    background: #1632A2;
+}
+
+.video-container {
     background-color: #222C3B;
-    width: 500px;
-    height: 300px;
-    margin: 0px;
+    width: 300px;
+    height: 180px;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.5);
-    margin-bottom: 20px;
 }
 
 .down {
     display: flex;
+    flex: 1;
     width: 100%;
     min-width: 722px;
-    height: 25vh;
+    height: 200px;
+    max-height: 200px;
+    background-color: tomato;
     align-items: center;
     justify-content: center;
-  }
+}
 
 .buttons {
+    display: flex;
     background-color: #222C3B;
     color: white;
-    height: 40px;
-    width: 40px;
     border-radius: 5px;
     cursor: pointer;
     padding: 15px;
     margin-inline: 25px;
     align-items: stretch;
-    justify-content: center;}
+    justify-content: center;
+}
+
+.button-icon {
+    height: 30px;
+    width: 30px;
+}
 
 .buttons:active {
     transform: scale(0.98);
