@@ -12,21 +12,6 @@
     align-items: center;
     justify-content: center;
     flex: 1;
-    /* background-color: aqua; */
-}
-
-.video-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 15px;
-}
-
-.video-container {
-    background-color: #222C3B;
-    width: 300px;
-    height: 180px;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.5);
 }
 
 .down {
@@ -73,11 +58,6 @@
     margin-inline: 25px;
 }
 
-.callbuttonIcon {
-    height: 25px;
-    width: 25px;
-}
-
 .callbutton:active {
     transform: scale(0.98);
 }
@@ -92,13 +72,10 @@
     align-items: center;
     background-color: #222C3B;
     color: white;
-    height: 40px;
     border-radius: 5px;
     cursor: pointer;
     padding: 15px;
     margin-inline: 25px;
-    margin-top: 0;
-    margin-bottom: 0;
     font-size: 20px;
 }
 
@@ -108,10 +85,4 @@
 
 .copybutton:hover {
     background-color: #1632A2;
-}
-
-.iconcopy {
-    height: 40px;
-    width: 40px;
-    margin-left: 20px;
 }
