@@ -10,11 +10,11 @@ export function useRoom(roomId) {
   const [socket, setSocket] = useState(null);
   const history = useHistory();
 
-  const [isMicOpen, setIsMicOpen] = useState(true);
+  const [isAudioOpen, setIsAudioOpen] = useState(true);
   const [isVideoOpen, setIsVideoOpen] = useState(true);
 
   const [videoOptions, setVideoOptions] = useState([{}]);
-  const [videoSelected, setVideoSelected] = useState({});
+  const [videoChangeSelected, setVideoChangeSelected] = useState({});
   
   const {
     logout,
@@ -67,7 +67,7 @@ export function useRoom(roomId) {
   }, [clientUsername, socket]);
 
   useEffect(() => {
-    if (clientMediaStream !== null && socket !== null && !videoSelected.value) {
+    if (clientMediaStream !== null && socket !== null && !videoChangeSelected.value) {
       const peer = new Peer({
         host: "localhost",
         port: 3333,
@@ -129,15 +129,8 @@ export function useRoom(roomId) {
         socket.emit("disconnect-user", {socketId, roomId});
       });
 
-      socket.on("toggle-user-audio", ({socketId, isMicOpen}) => {
-        const mutedComponent = document.getElementById("MUTED-COMPONENT-" + socketId);
-        if (mutedComponent) {
-          if (isMicOpen) {
-            mutedComponent.style.display = "none";
-          } else {
-            mutedComponent.style.display = "flex";
-          }
-        }
+      socket.on("toggle-user-audio", ({socketId, isAudioOpen}) => {
+        togglePeerAudio(socketId, !isAudioOpen);
       });
 
       socket.on("verify-is-muted", (socketId) => {
@@ -151,42 +144,26 @@ export function useRoom(roomId) {
       });
 
       socket.on("is-muted", ({isMuted, peerSocketId}) => {
-        console.log("EXECUTEI 2");
-        const mutedComponent = document.getElementById("MUTED-COMPONENT-" + peerSocketId);
-        if (mutedComponent) {
-          if (isMuted) {
-            mutedComponent.style.display = "flex";
-          } else {
-            mutedComponent.style.display = "none";
-          }
-        }
+        togglePeerAudio(peerSocketId, isMuted);
       });
     }
   }, [clientPeer, clientMediaStream]);
 
   useEffect(() => {
     if (clientMediaStream) {
-      clientMediaStream.getAudioTracks()[0].enabled = isMicOpen;
+      clientMediaStream.getAudioTracks()[0].enabled = isAudioOpen;
 
-      socket.emit("toggle-audio", {roomId, isMicOpen});
-      
-      const mutedComponent = document.getElementById("MUTED-COMPONENT-" + socket.id);
+      socket.emit("toggle-audio", {roomId, isAudioOpen});
 
-      if (mutedComponent) {
-        if (isMicOpen) {
-          mutedComponent.style.display = "none";
-        } else {
-          mutedComponent.style.display = "flex";
-        }
-      }
+      togglePeerAudio(socket.id, !isAudioOpen);
       
       clientMediaStream.getVideoTracks()[0].enabled = isVideoOpen;
     }
-  }, [clientMediaStream, isMicOpen, isVideoOpen]);
+  }, [clientMediaStream, isAudioOpen, isVideoOpen]);
   
   useEffect(() => {
     async function newStream() {
-      if (videoSelected.value) {
+      if (videoChangeSelected.value) {
 
         clientMediaStream.getTracks().forEach(track => {
           track.stop();
@@ -194,7 +171,7 @@ export function useRoom(roomId) {
 
         const stream = await navigator.mediaDevices.getUserMedia({
           audio: true,
-          video: {deviceId: videoSelected.value ? {exact: videoSelected.value} : undefined}
+          video: {deviceId: videoChangeSelected.value ? {exact: videoChangeSelected.value} : undefined}
         });
 
         for (let [key] of clientPeer._connections.entries()) {
@@ -206,10 +183,10 @@ export function useRoom(roomId) {
     }
       
     newStream();
-  }, [videoSelected]);
+  }, [videoChangeSelected]);
   
   useEffect(() => {
-    if (clientMediaStream !== null && videoSelected.value && clientMediaStream.active === true) {
+    if (clientMediaStream !== null && videoChangeSelected.value && clientMediaStream.active === true) {
       const videoContainer = document.getElementById("VIDEO-CONTAINER-" + socket.id);
 
       if (videoContainer) {
@@ -217,7 +194,7 @@ export function useRoom(roomId) {
         addClientVideo(clientMediaStream, clientUsername, socket.id);
       }
     }
-  }, [clientMediaStream, videoSelected]);
+  }, [clientMediaStream, videoChangeSelected]);
 
   function addPeerVideo(mediaStream, username, socketId) {   
     
@@ -247,7 +224,6 @@ export function useRoom(roomId) {
         videoContainer.appendChild(video);
         videoContainer.appendChild(nameComponent);
         videoGrid.appendChild(videoContainer);
-        console.log("EXECUTEI");
         socket.emit("verify-is-muted", socketId);
       });
     }
@@ -292,12 +268,24 @@ export function useRoom(roomId) {
     } 
   }
 
-  function toggleMic() {    
-    setIsMicOpen(!isMicOpen);
+  function toggleAudio() {    
+    setIsAudioOpen(!isAudioOpen);
   }
 
   function toggleVideo() {
     setIsVideoOpen(!isVideoOpen);
+  }
+
+  function togglePeerAudio(socketId, isMuted) {
+    const mutedComponent = document.getElementById("MUTED-COMPONENT-" + socketId);
+    
+    if (mutedComponent) {
+      if (isMuted) {
+        mutedComponent.style.display = "flex";
+      } else {
+        mutedComponent.style.display = "none";
+      }
+    }
   }
 
   async function disconnect() {
@@ -313,12 +301,12 @@ export function useRoom(roomId) {
   
   return { 
     disconnect, 
-    toggleMic, 
+    toggleAudio, 
     toggleVideo, 
-    isMicOpen, 
+    isAudioOpen, 
     isVideoOpen, 
     videoOptions, 
-    videoSelected, 
-    setVideoSelected
+    videoChangeSelected, 
+    setVideoChangeSelected
   }
 }

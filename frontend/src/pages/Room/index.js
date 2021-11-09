@@ -9,17 +9,17 @@ export function Room({match}) {
   const {params: { roomId }} = match;
   const {
     disconnect, 
-    toggleMic, 
+    toggleAudio, 
     toggleVideo, 
-    isMicOpen, 
+    isAudioOpen, 
     isVideoOpen, 
     videoOptions,
-    videoSelected,
-    setVideoSelected
+    videoChangeSelected,
+    setVideoChangeSelected
   } = useRoom(roomId);
 
   function handleSelectVideo(value) {
-    setVideoSelected(value);
+    setVideoChangeSelected(value);
   }
 
   return (
@@ -38,15 +38,15 @@ export function Room({match}) {
           : <button onClick={toggleVideo}><FaVideoSlash/></button>
         }
         
-        { isMicOpen
-          ? <button onClick={toggleMic}><TiMicrophone/></button>
-          : <button onClick={toggleMic}><FaMicrophoneSlash/></button>
+        { isAudioOpen
+          ? <button onClick={toggleAudio}><TiMicrophone/></button>
+          : <button onClick={toggleAudio}><FaMicrophoneSlash/></button>
         }
 
         <div className="select-container">
           <Select 
             options={videoOptions} 
-            value={videoSelected} 
+            value={videoChangeSelected} 
             onChange={handleSelectVideo}
             menuPlacement="top"
           />

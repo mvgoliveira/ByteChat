@@ -16,8 +16,8 @@ io.on("connection", (socket) => {
     io.to(roomId).emit("user-disconnected", socketId);
   });
 
-  socket.on("toggle-audio", ({roomId, isMicOpen}) => {
-    socket.to(roomId).emit("toggle-user-audio", {socketId: socket.id, isMicOpen});
+  socket.on("toggle-audio", ({roomId, isAudioOpen}) => {
+    socket.to(roomId).emit("toggle-user-audio", {socketId: socket.id, isAudioOpen});
   });
 
   socket.on("verify-is-muted", (socketId) => {
