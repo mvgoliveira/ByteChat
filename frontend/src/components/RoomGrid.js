@@ -1,17 +1,17 @@
 import '../components/RoomGrid.css'
 
-export function VideoContainer(props){
+function VideoContainer(props){
     return(<div className="video-container">{props.children}</div>);
 }
 
-let peopleConnected = 7;
+let peopleConnected = 5;
 
 export function Grid(){
     switch (peopleConnected) {
         case 1:
-            return(<div className="video-grid-1"><VideoContainer/></div>)
+            return (<div className="video-grid"><VideoContainer/></div>)
         case 2:
-            return(<div className="video-grid-2"><VideoContainer/><VideoContainer/></div>)
+            return(<div className="video-grid"><VideoContainer/><VideoContainer/></div>)
         case 3:
             return(<div className="video-grid"><VideoContainer/><VideoContainer/><VideoContainer/></div>)
         case 4:
@@ -26,6 +26,7 @@ export function Grid(){
             return(<div className="video-grid"><VideoContainer/><VideoContainer/><VideoContainer/><VideoContainer/><VideoContainer/><VideoContainer/><VideoContainer/><VideoContainer/></div>)
         case 9:
             return(<div className="video-grid"><VideoContainer/><VideoContainer/><VideoContainer/><VideoContainer/><VideoContainer/><VideoContainer/><VideoContainer/><VideoContainer/><VideoContainer/></div>)
-
+        default:
+            return <div></div>;
     }
 }

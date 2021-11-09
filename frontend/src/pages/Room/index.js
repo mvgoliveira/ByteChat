@@ -7,7 +7,7 @@ import { BsFillCameraVideoOffFill } from 'react-icons/bs'
 import { BsFillChatLeftFill } from 'react-icons/bs'
 import { FiPhoneOff } from 'react-icons/fi'
 import React, {useContext } from 'react';
-import { Grid, VideoContainer } from '../../components/RoomGrid';
+import { Grid } from '../../components/RoomGrid';
 import { AppStateContext } from '../../contexts/AppState'
 
 export function Room() {
