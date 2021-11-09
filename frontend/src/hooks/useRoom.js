@@ -83,7 +83,7 @@ export function useRoom(roomId) {
   }, [clientMediaStream, socket]);
 
   useEffect(() => {
-    if (clientPeer && clientMediaStream !== null) {      
+    if (clientPeer && clientMediaStream !== null) {     
       socket.on("user-connected", ({peerId, name, socketID}) => {
 
         if (clientMediaStream.active === true) {
@@ -92,7 +92,6 @@ export function useRoom(roomId) {
             clientMediaStream, 
             {metadata: {username: clientUsername, socketId: socket.id}}
           );
-          
           
           let videoConnected = false;
           call.on("stream", (userVideoStream) => {
@@ -108,7 +107,7 @@ export function useRoom(roomId) {
         call.answer(clientMediaStream);
         
         let videoConnected = false;
-        call.on("stream", (userVideoStream) => {    
+        call.on("stream", (userVideoStream) => {   
           if (!videoConnected) {
             addPeerVideo(userVideoStream, call.metadata.username, call.metadata.socketId);
             videoConnected = true;
@@ -129,12 +128,58 @@ export function useRoom(roomId) {
       socket.on("find-room-by-socketID", (socketId) => {
         socket.emit("disconnect-user", {socketId, roomId});
       });
+
+      socket.on("toggle-user-audio", ({socketId, isMicOpen}) => {
+        const mutedComponent = document.getElementById("MUTED-COMPONENT-" + socketId);
+        if (mutedComponent) {
+          if (isMicOpen) {
+            mutedComponent.style.display = "none";
+          } else {
+            mutedComponent.style.display = "flex";
+          }
+        }
+      });
+
+      socket.on("verify-is-muted", (socketId) => {
+        socket.emit("is-muted", 
+          {
+            isMuted: !clientMediaStream.getAudioTracks()[0].enabled, 
+            socketId,
+            peerSocketId: socket.id
+          }
+        );
+      });
+
+      socket.on("is-muted", ({isMuted, peerSocketId}) => {
+        console.log("EXECUTEI 2");
+        const mutedComponent = document.getElementById("MUTED-COMPONENT-" + peerSocketId);
+        if (mutedComponent) {
+          if (isMuted) {
+            mutedComponent.style.display = "flex";
+          } else {
+            mutedComponent.style.display = "none";
+          }
+        }
+      });
     }
   }, [clientPeer, clientMediaStream]);
 
   useEffect(() => {
     if (clientMediaStream) {
       clientMediaStream.getAudioTracks()[0].enabled = isMicOpen;
+
+      socket.emit("toggle-audio", {roomId, isMicOpen});
+      
+      const mutedComponent = document.getElementById("MUTED-COMPONENT-" + socket.id);
+
+      if (mutedComponent) {
+        if (isMicOpen) {
+          mutedComponent.style.display = "none";
+        } else {
+          mutedComponent.style.display = "flex";
+        }
+      }
+      
       clientMediaStream.getVideoTracks()[0].enabled = isVideoOpen;
     }
   }, [clientMediaStream, isMicOpen, isVideoOpen]);
@@ -175,52 +220,66 @@ export function useRoom(roomId) {
   }, [clientMediaStream, videoSelected]);
 
   function addPeerVideo(mediaStream, username, socketId) {   
-    if (!(document.getElementById("VIDEO-CONTAINER-" + socketId))) {      
+    
+    if (!(document.getElementById("VIDEO-CONTAINER-" + socketId))) {  
       const videoGrid = document.getElementById("video_grid");
+      
       const videoContainer = document.createElement("div");
-      const nameComponent = document.createElement("span");
-      const video = document.createElement("video");
-      
-      video.id = "VIDEO-" + socketId;
-      nameComponent.innerHTML = username;
-      
       videoContainer.className = "video_container";
       videoContainer.id = "VIDEO-CONTAINER-" + socketId;
       
+      const nameComponent = document.createElement("span");
+      nameComponent.innerHTML = username;
+      
+      const mutedComponent = document.createElement("article");
+      mutedComponent.innerHTML = "Mudo";
+      mutedComponent.id = "MUTED-COMPONENT-" + socketId;
+      
+      const video = document.createElement("video");
+      video.id = "VIDEO-" + socketId;
       video.muted = false;
       video.srcObject = mediaStream;
-
+      
       video.addEventListener("loadedmetadata", () => {
         video.play();
+        mutedComponent.style.display = "none";
+        videoContainer.appendChild(mutedComponent);
         videoContainer.appendChild(video);
         videoContainer.appendChild(nameComponent);
         videoGrid.appendChild(videoContainer);
-      })
+        console.log("EXECUTEI");
+        socket.emit("verify-is-muted", socketId);
+      });
     }
   }
 
   function addClientVideo(mediaStream, username, socketId) {
     if (!(document.getElementById("VIDEO-CONTAINER-" + socketId))) {      
       const videoGrid = document.getElementById("video_grid");
+      
       const videoContainer = document.createElement("div");
-      const nameComponent = document.createElement("span");
-      const video = document.createElement("video");
-      
-      video.id = "VIDEO-" + socketId;
-      nameComponent.innerHTML = username;
-      
       videoContainer.className = "video_container";
       videoContainer.id = "VIDEO-CONTAINER-" + socketId;
       
+      const nameComponent = document.createElement("span");
+      nameComponent.innerHTML = username;
+
+      const mutedComponent = document.createElement("article");
+      mutedComponent.innerHTML = "Mudo";
+      mutedComponent.id = "MUTED-COMPONENT-" + socketId;
+      
+      const video = document.createElement("video");
+      video.id = "VIDEO-" + socketId;
       video.muted = true;
       video.srcObject = mediaStream;
-
+      
       video.addEventListener("loadedmetadata", () => {
         video.play();
+        videoContainer.appendChild(mutedComponent);
         videoContainer.appendChild(video);
         videoContainer.appendChild(nameComponent);
         videoGrid.prepend(videoContainer);
-      })
+      });
     }
   }
 

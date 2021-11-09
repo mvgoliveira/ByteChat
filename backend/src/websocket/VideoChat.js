@@ -9,12 +9,22 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    console.log("DESCONECTADO ", socket.id);
     io.emit("find-room-by-socketID", socket.id);
   });
 
   socket.on("disconnect-user", ({socketId, roomId}) => {    
-    console.log("DESCONECTANDO ", socketId);
     io.to(roomId).emit("user-disconnected", socketId);
+  });
+
+  socket.on("toggle-audio", ({roomId, isMicOpen}) => {
+    socket.to(roomId).emit("toggle-user-audio", {socketId: socket.id, isMicOpen});
+  });
+
+  socket.on("verify-is-muted", (socketId) => {
+    io.to(socketId).emit("verify-is-muted", socket.id);
+  });
+
+  socket.on("is-muted", ({isMuted, socketId, peerSocketId}) => {
+    io.to(socketId).emit("is-muted", {isMuted, peerSocketId})
   });
 });

@@ -26,11 +26,13 @@ export function Room({match}) {
     <Container>
       <div className="videos_group">
         <div id="video_grid">
+          
         </div>
-        <button onClick={disconnect}>Desconectar</button>
       </div>
 
       <div className="controllers">
+        <button onClick={disconnect}>Desconectar</button>
+        
         { isVideoOpen
           ? <button onClick={toggleVideo}><FaVideo/></button>
           : <button onClick={toggleVideo}><FaVideoSlash/></button>
@@ -44,9 +46,9 @@ export function Room({match}) {
         <div className="select-container">
           <Select 
             options={videoOptions} 
-            maxMenuHeight={100} 
             value={videoSelected} 
             onChange={handleSelectVideo}
+            menuPlacement="top"
           />
         </div>
       </div>

@@ -52,14 +52,29 @@ export const Container = styled.div`
       
       span {
         position: relative;
-        z-index: 999;
-        top: -19%;
+        top: -22%;
         right: 30%;
         align-self: center;
         padding: 3px 15px;
         border-radius: 8px;
         background: rgba(0,0,0,0.2);
         color: #fbfbfb;
+        margin-bottom: -30px;
+      }
+
+      article {
+        z-index: 1;
+        display: none;
+        position: relative;
+        top: 80%;
+        right: -31%;
+        align-self: center;
+        background: rgba(255, 0, 35, 0.5);
+        color: #fbfbfb;
+        
+        padding: 3px 15px;
+        border-radius: 8px;
+        margin-bottom: -25px;
       }
     }
   }
