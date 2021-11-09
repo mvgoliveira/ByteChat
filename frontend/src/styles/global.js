@@ -7,6 +7,13 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    width: 100%;
+  }
+
   body, input, button, textarea {
     font: 400 1rem 'Roboto', sans-serif;
   }
