@@ -7,11 +7,15 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  body {
+    background: #FAFAFA;
+  }
+
   button {
+    border: none;
     background: transparent;
-    box-shadow: 0px 0px 0px transparent;
-    border: 0px solid transparent;
-    text-shadow: 0px 0px 0px transparent;
+    cursor: pointer;
+    width: 100%;
   }
 
   body, input, button, textarea {
