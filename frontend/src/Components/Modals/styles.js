@@ -118,19 +118,20 @@ export const VideoModalContainer = styled.div`
           -moz-transform: rotateY(180deg);
         }
 
-        article {
+        #muted-element {
           z-index: 1;
           display: none;
           position: relative;
           top: 80%;
-          right: -31%;
+          right: -35%;
+          font: 500 0.9rem 'Poppins', sans-serif;
           align-self: center;
-          background: rgba(255, 0, 35, 0.5);
+          background: rgba(255, 0, 1, 0.5);
           color: #fbfbfb;
           
           padding: 3px 15px;
           border-radius: 8px;
-          margin-bottom: -25px;
+          margin-bottom: -27px;
         }
       }
 
