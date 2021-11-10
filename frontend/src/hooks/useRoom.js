@@ -43,10 +43,10 @@ export function useRoom(roomId) {
     }
 
     getVideoTracks();
-  }, [])
+  }, []);
 
   useEffect(() => {
-    if (socket === null) {
+    if (socket === null && roomId) {
       setSocket(createSocket());
     }
   }, [socket]);
@@ -150,7 +150,7 @@ export function useRoom(roomId) {
   }, [clientPeer, clientMediaStream]);
 
   useEffect(() => {
-    if (clientMediaStream) {
+    if (clientMediaStream && roomId) {
       clientMediaStream.getAudioTracks()[0].enabled = isAudioOpen;
 
       socket.emit("toggle-audio", {roomId, isAudioOpen});
@@ -163,7 +163,7 @@ export function useRoom(roomId) {
   
   useEffect(() => {
     async function newStream() {
-      if (videoChangeSelected.value) {
+      if (videoChangeSelected.value && clientMediaStream && roomId) {
 
         clientMediaStream.getTracks().forEach(track => {
           track.stop();
@@ -186,7 +186,7 @@ export function useRoom(roomId) {
   }, [videoChangeSelected]);
   
   useEffect(() => {
-    if (clientMediaStream !== null && videoChangeSelected.value && clientMediaStream.active === true) {
+    if (clientMediaStream && videoChangeSelected.value && clientMediaStream.active === true && roomId) {
       const videoContainer = document.getElementById("VIDEO-CONTAINER-" + socket.id);
 
       if (videoContainer) {

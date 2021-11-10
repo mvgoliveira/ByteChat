@@ -15,13 +15,13 @@ export function AuthContextProvider(props) {
     }
   }, [cookies.clientUsername])
 
-  function login(clientUsername) {
+  function addClientName(clientUsername) {
     setClientUsername(clientUsername);
     setCookies('clientUsername', clientUsername);
     return;
   }
 
-  function logout() {
+  function removeClientName() {
     setClientUsername("");
     setCookies('clientUsername', "");
     return;
@@ -38,8 +38,8 @@ export function AuthContextProvider(props) {
   return (
     <AuthContext.Provider value={{ 
       clientUsername, 
-      login, 
-      logout, 
+      addClientName, 
+      removeClientName, 
       clientMediaStream, 
       addClientMediaStream, 
       clientPeer, 
