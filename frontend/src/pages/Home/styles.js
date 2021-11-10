@@ -7,8 +7,10 @@ export const Container = styled.div`
   max-width: 100vw;
   height: 100vh;
   padding: 0 150px;
-  background: #FAFAFA url(${WolfIllustration}) no-repeat left -100px top -45px;
+  background: url(${WolfIllustration}) no-repeat left -100px top -45px;
   background-size: 258px;
+  gap: 50px;
+  padding-bottom: 50px;
   
   header {
     flex: 1;
@@ -45,6 +47,15 @@ export const Container = styled.div`
         border: 2px solid #284de2;
         color: #284DE2;
         border-radius: 8px;
+        
+        :hover {
+          border: 2px solid #2240b5;
+          color: #2240b5;
+        }
+
+        :active {
+          transform: scale(1.01);
+        }
       }
     }
 
@@ -53,6 +64,8 @@ export const Container = styled.div`
   section {
     flex: 6;
     display: flex;
+    padding-bottom: 50px;
+
     
     #section-left {
       display: flex;
@@ -62,7 +75,6 @@ export const Container = styled.div`
       height: 100%;
       justify-content: center;
       align-items: flex-start;
-      padding-bottom: 120px;
       
       h2 {
         font: bold 1.9rem 'Poppins', sans-serif;
@@ -73,14 +85,26 @@ export const Container = styled.div`
         font: 500 1.3rem 'Poppins', sans-serif;
       }
 
-      button {
+      > button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         background: #284de2;
         width: 220px;
         font: 500 1rem 'Poppins', sans-serif;
-        padding: 12px 30px;
+        padding: 12px 0;
         color: #fff;
         border-radius: 8px;
         margin-top: 64px;
+        gap: 10px;
+
+        :hover {
+          background: #2445c9;
+        }
+
+        :active {
+          transform: scale(1.01);
+        }
       }
       
       article {
@@ -90,23 +114,43 @@ export const Container = styled.div`
 
         input {
           border: 2px solid #81899E;
+          border: none;
           padding: 10px 25px;
           border-radius: 8px;
           height: 50px;
-          
-          :focus {
-            border: 2px solid #284de2;
-            outline: none;
-          }
+          background: transparent;
+          outline: none;
         }
 
         button {
           width: 80px;
           padding: 0px;
           margin: 0;
-          margin-left: 27px;
-          color: #81899E;
+          margin-left: 24px;
+          color: ${props => props.isInputFill ? "#284de2" : "#81899E"};
           background: transparent;
+          cursor: ${props => props.isInputFill ? "pointer" : "not-allowed"};
+        }
+
+        form {
+          display: flex;
+          #input-container {
+            display: flex;
+            border-radius: 8px;
+            border: ${props => props.isInputFill ? "2px solid #284de2" : "2px solid #81899E"};
+  
+            :focus-within {
+              border: 2px solid #284de2;
+              outline: none;
+            }
+            
+            svg {
+              position: relative;
+              top: 50%;
+              transform: translate(70%, -50%);
+              margin-right: 4px;
+            }
+          }
         }
       }
     }
@@ -117,7 +161,6 @@ export const Container = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
-      padding-bottom: 120px;
       flex-direction: column;
       align-items: center;
       text-align: center;
@@ -125,9 +168,15 @@ export const Container = styled.div`
       #section-right-top {
         display: flex;
         justify-content: center;
+        align-items: center;
+        gap: 20px;
 
         img {
           width: 450px;
+        }
+
+        svg {
+          cursor: pointer;
         }
       }
 
