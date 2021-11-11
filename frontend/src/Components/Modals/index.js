@@ -69,16 +69,17 @@ export function SettingsModal({ isOpen, children }) {
     setIsComplete
   } = useSettings();
 
-  useEffect(() => {
-    setIsNameModalOpen(isOpen);
-  }, [isOpen])
-  
   const { 
     addClientName,
     removeClientName, 
     clientMediaStream, 
-    addClientMediaStream
+    addClientMediaStream,
+    clientUsername
   } = useAuth();
+
+  useEffect(() => {
+    setIsNameModalOpen(isOpen);
+  }, [isOpen])
 
   function openVideoModal(event) {
     event.preventDefault();
