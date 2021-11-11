@@ -1,5 +1,4 @@
 import "../components/SignTemplate.css"
-import ThemeSwitcher from "../components/ThemeSwitcher";
 
 
 export function Title(props){
@@ -25,7 +24,7 @@ export function Submit(props){
 export default function SignTemplate(props) {
     return (
         <div className="sign_page">
-            <ThemeSwitcher/>
+             
             <div className="sign_image">
                 <img src={props.image}></img>
             </div>

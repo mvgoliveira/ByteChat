@@ -17,7 +17,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-width: 300px;
+    min-width: 350px;
     margin-left: 5px;
 }
 
@@ -66,8 +66,9 @@
 }
 
 .submit {
-  color: #fff;
-  background: var(--button);
+  color: white;
+  font-weight: 600;
+  background: #284DE2;
   cursor: pointer;
   text-align: center;
   border-radius: 0.5em;
@@ -85,7 +86,7 @@
 }
 
 .submit:hover {
-    background-color: var(--button_hover);
+    background-color: #1632A2;
 }
 
 .text {
@@ -94,12 +95,10 @@
 
 .register {
     text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
-    color: #1632A2;
-    /* padding-top: 15px; */
+    color: #284DE2;
+    text-decoration: none;
 }
 
-a {
-    text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
-    color: #E1BEE7;
-    text-decoration: none
+.register:hover {
+    color: #1632A2;
 }

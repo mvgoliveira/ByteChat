@@ -4,11 +4,6 @@ import { Title, SubTitle ,UserInput , PassInput, Submit } from "../../components
 import '../Login/style.css';
 
 export function Login() {
-  document.addEventListener("DOMContentLoaded", function(event) {
-    document.documentElement.setAttribute("data-theme", "light");
-
-  })
-    
   return (
     <SignTemplate image={HumansChatBox}>
       <Title>Faça seu login</Title>
