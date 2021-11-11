@@ -84,10 +84,11 @@ export function SettingsContextProvider(props) {
       clientMediaStream.getAudioTracks()[0].enabled = isClientAudioOpen;      
       clientMediaStream.getVideoTracks()[0].enabled = isClientVideoOpen;
 
-      if (isClientAudioOpen) {
-        document.getElementById("muted-element").style.display = "none";
-      } else {
-        document.getElementById("muted-element").style.display = "flex";
+      const muteElement = document.getElementById("muted-element");
+      if (isClientAudioOpen && muteElement) {
+        muteElement.style.display = "none";
+      } else if (muteElement) {
+        muteElement.style.display = "flex";
       }
     }
   }, [clientMediaStream, isClientAudioOpen, isClientVideoOpen]);
