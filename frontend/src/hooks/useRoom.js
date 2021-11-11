@@ -184,6 +184,9 @@ export function useRoom(roomCode) {
 
       if (videoContainer) {
         videoContainer.remove();
+        setIsAudioOpen(false);
+        setIsVideoOpen(false);
+
         addClientVideo(clientMediaStream, clientUsername, socket.id);
       }
     }
@@ -224,7 +227,7 @@ export function useRoom(roomCode) {
   }
 
   function addClientVideo(mediaStream, username, socketId) {
-    if (!(document.getElementById("NAME-COMPONENT-" + username))) {      
+    if (!(document.getElementById("NAME-COMPONENT-" + username))) {  
       const videoGrid = document.getElementById("video_grid");
       
       const videoContainer = document.createElement("div");
