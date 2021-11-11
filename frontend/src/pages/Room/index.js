@@ -19,8 +19,7 @@ export function Room({match}) {
     toggleVideo, 
     isAudioOpen, 
     isVideoOpen, 
-    videoOptions,
-    videoChangeSelected,
+    videoChangeSelected, 
     setVideoChangeSelected
   } = useRoom(roomCode);
 
@@ -31,7 +30,8 @@ export function Room({match}) {
   const {
     setRoomCode,
     openSettingsModal,
-    setIsComplete
+    setIsComplete,
+    videoOptions
   } = useSettings();
 
   function handleSelectVideo(value) {
@@ -39,7 +39,6 @@ export function Room({match}) {
   }
 
   useEffect(() => {
-    console.log("EXECUTEI");
     setIsComplete(false);
   }, [])
 
