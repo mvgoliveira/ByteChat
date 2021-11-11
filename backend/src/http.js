@@ -4,12 +4,12 @@ import { ExpressPeerServer } from "peer";
 import {routes} from './routes';
 import cors from "cors";
 import { Server } from 'socket.io';
-// import { MongoDB } from './database';
+import { MongoDB } from './database';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-// MongoDB();
+MongoDB();
 const app = express();
 app.use(cors());
 const http = createServer(app);
