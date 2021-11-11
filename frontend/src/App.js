@@ -1,13 +1,16 @@
 import { BrowserRouter } from "react-router-dom";
 import { CustomSwitch } from './CustomSwitch';
 import { AuthContextProvider } from './contexts/AuthContext';
+import { SettingsContextProvider } from './contexts/SettingsContext';
 
 function App() {
   return (
     <AuthContextProvider>
-      <BrowserRouter>
-        <CustomSwitch/>
-      </BrowserRouter>
+      <SettingsContextProvider>
+        <BrowserRouter>
+          <CustomSwitch/>
+        </BrowserRouter>
+      </SettingsContextProvider>
     </AuthContextProvider>
   );
 }

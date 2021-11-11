@@ -5,7 +5,7 @@ import Peer from "peerjs";
 
 import { createSocket } from "../services/socket";
 import { useAuth } from "./useAuth";
-import { useHome } from "./useHome";
+import { useSettings } from "./useSettings";
 
 export function useRoom(roomCode) {
   const [socket, setSocket] = useState(null);
@@ -14,47 +14,33 @@ export function useRoom(roomCode) {
   const [isAudioOpen, setIsAudioOpen] = useState(true);
   const [isVideoOpen, setIsVideoOpen] = useState(true);
 
-  const [videoOptions, setVideoOptions] = useState([{}]);
   const [videoChangeSelected, setVideoChangeSelected] = useState({});
   
   const {
-    logout,
+    clientPeer,
+    removeClientName,
     clientUsername, 
     clientMediaStream, 
-    addClientMediaStream, 
-    clientPeer, 
+    addClientMediaStream,
     addClientPeer
   } = useAuth();
 
-  useEffect(() => {
-    async function getVideoTracks() {
-      const videos = [];
-      
-      const devices = await navigator.mediaDevices.enumerateDevices();
-      devices.map(device => {
-        if (device.kind === "videoinput") {
-          if (!(videoOptions.find(video => video.value === device.label))) {
-            videos.push({value: device.deviceId, label: "📷 " + device.label})
-          }
-        }
-        return null;
-      });
-      
-      setVideoOptions(videos);
-    }
-
-    getVideoTracks();
-  }, []);
+  const {
+    isClientAudioOpen,
+    isClientVideoOpen,
+    isComplete
+  } = useSettings();
 
   useEffect(() => {
-    if (socket === null && roomCode) {
+    setSocket(socket);  
+    if (socket === null && roomCode && isComplete) {      
       const socket = createSocket(); 
       
       socket.on('connect', () => {
         setSocket(socket);  
       });
     }
-  }, [socket, roomCode]);
+  }, [socket, roomCode, isComplete]);
 
   useEffect(() => {
     async function startClientVideo(){   
@@ -203,8 +189,9 @@ export function useRoom(roomCode) {
     }
   }, [clientMediaStream, videoChangeSelected, socket]);
 
+
   function addPeerVideo(mediaStream, username, socketId) {   
-    if (!(document.getElementById("VIDEO-CONTAINER-" + socketId))) {  
+    if (!(document.getElementById("NAME-COMPONENT-" + username))) {  
       const videoGrid = document.getElementById("video_grid");
       
       const videoContainer = document.createElement("div");
@@ -212,6 +199,7 @@ export function useRoom(roomCode) {
       videoContainer.id = "VIDEO-CONTAINER-" + socketId;
       
       const nameComponent = document.createElement("span");
+      nameComponent.id = "NAME-COMPONENT-" + username;
       nameComponent.innerHTML = username;
       
       const mutedComponent = document.createElement("article");
@@ -236,7 +224,7 @@ export function useRoom(roomCode) {
   }
 
   function addClientVideo(mediaStream, username, socketId) {
-    if (!(document.getElementById("VIDEO-CONTAINER-" + socketId))) {      
+    if (!(document.getElementById("NAME-COMPONENT-" + username))) {      
       const videoGrid = document.getElementById("video_grid");
       
       const videoContainer = document.createElement("div");
@@ -244,6 +232,7 @@ export function useRoom(roomCode) {
       videoContainer.id = "VIDEO-CONTAINER-" + socketId;
       
       const nameComponent = document.createElement("span");
+      nameComponent.id = "NAME-COMPONENT-" + username;
       nameComponent.innerHTML = username;
 
       const mutedComponent = document.createElement("article");
@@ -261,6 +250,9 @@ export function useRoom(roomCode) {
         videoContainer.appendChild(video);
         videoContainer.appendChild(nameComponent);
         videoGrid.prepend(videoContainer);
+
+        setIsAudioOpen(isClientAudioOpen);
+        setIsVideoOpen(isClientVideoOpen);
       });
     }
   }
@@ -294,7 +286,7 @@ export function useRoom(roomCode) {
   }
 
   async function disconnect() {
-    logout();
+    removeClientName();
 
     clientMediaStream.getTracks().forEach(function(track) {
       track.stop();
@@ -310,7 +302,6 @@ export function useRoom(roomCode) {
     toggleVideo, 
     isAudioOpen, 
     isVideoOpen, 
-    videoOptions, 
     videoChangeSelected, 
     setVideoChangeSelected
   }

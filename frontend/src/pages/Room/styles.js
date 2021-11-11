@@ -9,7 +9,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #141E2E;
+  background-color: #18202D;
 
   .select-container {
     width: 250px;
@@ -28,6 +28,29 @@ export const Container = styled.div`
   .controllers {
     display: flex;
     gap: 10px;
+    
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #273547;
+      color: #ffffff;
+      border-radius: 8px;
+      transition: background 250ms ease-in-out, transform 150ms ease;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 70px;
+      height: 70px;
+
+      svg {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    #disconnect-button {
+      background: #E5332A;
+    }
   }
 
   #video_grid {
@@ -41,10 +64,10 @@ export const Container = styled.div`
 
       video {
         object-fit: cover;
-        height: 220px;
+        height: 260px;
         border-radius: 1rem;
         margin: 0.5rem;
-        width: 350px;
+        width: 400px;
         transform: rotateY(180deg);
         -webkit-transform: rotateY(180deg);
         -moz-transform: rotateY(180deg);
@@ -76,27 +99,6 @@ export const Container = styled.div`
         border-radius: 8px;
         margin-bottom: -25px;
       }
-    }
-  }
-
-  button {
-    display: inline-block;
-    border: none;
-    border-radius: 8px;
-    padding: 1rem 1.3rem;
-    margin: 0;
-    text-decoration: none;
-    background: #273547;
-    color: #ffffff;
-    cursor: pointer;
-    transition: background 250ms ease-in-out, transform 150ms ease;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-
-    svg {
-      margin-top: 5px;
-      width: 24px;
-      height: 24px;
     }
   }
 

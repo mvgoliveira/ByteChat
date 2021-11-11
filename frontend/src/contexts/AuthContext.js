@@ -6,8 +6,12 @@ export const AuthContext = createContext({});
 export function AuthContextProvider(props) {
   const [clientUsername, setClientUsername] = useState("");
   const [clientMediaStream, setClientMediaStream] = useState(null);
-  const [clientPeer, setClientPeer] = useState(null); 
   const [cookies, setCookies] = useCookies(['clientUsername']);
+  const [clientPeer, setClientPeer] = useState(null); 
+
+  function addClientPeer(peer) {
+    setClientPeer(peer);
+  }
 
   useEffect(() => {
     if (cookies.clientUsername !== undefined) {
@@ -31,19 +35,15 @@ export function AuthContextProvider(props) {
     setClientMediaStream(stream);
   }
 
-  function addClientPeer(peer) {
-    setClientPeer(peer);
-  }
-
   return (
     <AuthContext.Provider value={{ 
       clientUsername, 
       addClientName, 
       removeClientName, 
       clientMediaStream, 
-      addClientMediaStream, 
-      clientPeer, 
-      addClientPeer 
+      addClientMediaStream,
+      clientPeer,
+      addClientPeer
     }}>
       { props.children }
     </AuthContext.Provider>

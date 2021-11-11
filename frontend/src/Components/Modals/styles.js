@@ -52,7 +52,7 @@ export const NameModalContainer = styled.div`
     align-items: center;
     gap: 20px;
 
-    button {
+    #name-next-button {
       display: flex;
       justify-content: center;
       align-items: center;

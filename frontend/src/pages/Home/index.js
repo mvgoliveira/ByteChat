@@ -1,91 +1,48 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useEffect, useState} from 'react';
 import {MdNavigateNext, MdNavigateBefore, MdOutlineKeyboardAlt, MdVideocam} from 'react-icons/md';
-import {FaMicrophoneSlash, FaVideo, FaVideoSlash} from "react-icons/fa"
-import {TiMicrophone} from "react-icons/ti"
-import Select from "react-select";
 
 import { Container } from './styles';
 import HomePublicIllustration from '../../images/svg/HomePublic.svg';
 import HomePrivateIllustration from '../../images/svg/HomePrivate.svg';
-import { NameModal, VideoModal } from '../../Components/Modals';
-import { useHome } from '../../hooks/useHome';
+import { useSettings } from '../../hooks/useSettings';
+import { SettingsModal } from '../../Components/Modals';
+import { useAuth } from '../../hooks/useAuth';
 
 export function Home() {
+  const [isPublicIcon, setIsPublicIcon] = useState(true);
 
   const {
-    roomCode,
-    isNameInputOpen,
-    name,
-    openVideoModal,
-    handleInputNameChange,
-    isVideoInputOpen,
-    enterRoom,
-    isClientVideoOpen,
-    isClientAudioOpen,
-    toggleClientVideo,
-    toggleClientAudio,
-    videoOptions,
-    videoChangeSelected,
-    handleSelectVideo,
-    openNameModal,
-    handleInputRoomCodeChange,
-    isPublicIcon,
-    handleSetIcon
-  } = useHome();
+    openSettingsModal,
+    isSettingsModalOpen,
+    setRoomCode,
+    roomCode
+  } = useSettings();
+
+  const {
+    clientPeer,
+    addClientPeer
+  } = useAuth();
+
+  function handleSetIcon(IsPublic) {
+    setIsPublicIcon(IsPublic);
+  }
+
+  function handleInputRoomCodeChange(event) {
+    setRoomCode(event.target.value);
+  }
+
+  useEffect(() => {
+    if (clientPeer) {
+      clientPeer.disconnect();
+      addClientPeer(null);
+    }
+  }, [clientPeer]);
 
   return (
     <Container isInputFill={roomCode !== "" ? true : false}>
-      <NameModal id="" isOpen={isNameInputOpen} isInputFill={name !== "" ? true : false}>
-        <form className="buttonsContainer" onSubmit={openVideoModal}>
-          <input
-            id="nameInput"
-            placeholder='Digite seu nome'
-            onChange={handleInputNameChange}
-            value={name}
-            name="name"
-            autoComplete="off"
-          />
-          <button type="submit"><MdNavigateNext size={36} color="#fff"/></button>
-        </form>
-      </NameModal>
-
-      <VideoModal isOpen={isVideoInputOpen} name={name} >
-        <div id="container-left">
-          <div id="video-container">
-            <span id="muted-element">Mudo</span>
-
-            <video id="video-element"></video>
-          </div>
-
-          <form id="video-controllers" onSubmit={enterRoom}>
-            <section id="section-left">
-              { isClientVideoOpen
-                ? <button type="button" onClick={toggleClientVideo}><FaVideo/></button>
-                : <button type="button" onClick={toggleClientVideo}><FaVideoSlash/></button>
-              }
-              
-              { isClientAudioOpen
-                ? <button type="button" onClick={toggleClientAudio}><TiMicrophone/></button>
-                : <button type="button" onClick={toggleClientAudio}><FaMicrophoneSlash/></button>
-              }
-            </section>
-
-            <section id="section-right">
-              <button type="submit"><MdNavigateNext size={36} color="#fff"/></button>
-            </section>
-          </form>
-        </div>
-
-        <div id="container-right">
-          <p> Câmera </p>
-          <Select 
-            options={videoOptions} 
-            value={videoChangeSelected} 
-            onChange={handleSelectVideo}
-            placeholder="Selecione sua câmera"
-          />
-        </div>
-      </VideoModal>
+      <SettingsModal isOpen={isSettingsModalOpen}>
+      </SettingsModal>
 
       <header>
         <div id="header-left">
@@ -103,7 +60,7 @@ export function Home() {
           <button type="button"> <MdVideocam size={25}/> Criar uma reunião</button>
           
           <article>
-            <form onSubmit={openNameModal}>
+            <form onSubmit={openSettingsModal}>
               <div id="input-container">
                 <MdOutlineKeyboardAlt size={25} color={roomCode !== "" ? "#284DE2" : "#81899E" }/>
                 <input 
