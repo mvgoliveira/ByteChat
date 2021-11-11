@@ -16,7 +16,8 @@ export function Home() {
     openSettingsModal,
     isSettingsModalOpen,
     setRoomCode,
-    roomCode
+    roomCode,
+    setName
   } = useSettings();
 
   const {
@@ -31,6 +32,11 @@ export function Home() {
   function handleInputRoomCodeChange(event) {
     setRoomCode(event.target.value);
   }
+
+  useEffect(() => {
+    setRoomCode("");
+    setName("");
+  }, []);
 
   useEffect(() => {
     if (clientPeer) {
