@@ -6,7 +6,7 @@ import { Container } from "./styles";
 import { useRoom } from "../../hooks/useRoom";
 
 export function Room({match}) {
-  const {params: { roomId }} = match;
+  const {params: { roomCode }} = match;
   const {
     disconnect, 
     toggleAudio, 
@@ -16,7 +16,7 @@ export function Room({match}) {
     videoOptions,
     videoChangeSelected,
     setVideoChangeSelected
-  } = useRoom(roomId);
+  } = useRoom(roomCode);
 
   function handleSelectVideo(value) {
     setVideoChangeSelected(value);

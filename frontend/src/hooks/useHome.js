@@ -1,4 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
+import { useHistory } from "react-router";
 
 import { useRoom } from "./useRoom";
 import { useAuth } from './useAuth';
@@ -10,21 +12,24 @@ export function useHome() {
   const [isNameInputOpen, setIsNameInputOpen] = useState(false);
   const [isVideoInputOpen, setIsVideoInputOpen] = useState(false);
 
+  const [isClientAudioOpen, setIsClientAudioOpen] = useState(true);
+  const [isClientVideoOpen, setIsClientVideoOpen] = useState(true);
+
+  const history = useHistory();
+
   const {
-    toggleAudio, 
-    toggleVideo, 
-    isAudioOpen, 
-    isVideoOpen,
     setVideoChangeSelected,
     videoOptions,
     videoChangeSelected
-  } = useRoom("");
+  } = useRoom(null);
 
   const {
     addClientName,
     removeClientName,
     clientMediaStream,
-    addClientMediaStream
+    addClientMediaStream,
+    clientPeer,
+    addClientPeer
   } = useAuth();
 
   useEffect(() => {
@@ -36,8 +41,16 @@ export function useHome() {
       clientMediaStream.getTracks().forEach(track => {
         track.stop();
       });
+      addClientMediaStream(null);
     }
   }, []);
+
+  useEffect(() => {
+    if (clientPeer) {
+      clientPeer.disconnect();
+      addClientPeer(null);
+    }
+  }, [clientPeer]);
 
   useEffect(() => {
     async function addVideo() {
@@ -47,6 +60,7 @@ export function useHome() {
           clientMediaStream.getTracks().forEach(track => {
             track.stop();
           });
+          addClientMediaStream(null);
         }
 
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -74,16 +88,16 @@ export function useHome() {
 
   useEffect(() => {
     if (clientMediaStream) {
-      clientMediaStream.getAudioTracks()[0].enabled = isAudioOpen;      
-      clientMediaStream.getVideoTracks()[0].enabled = isVideoOpen;
+      clientMediaStream.getAudioTracks()[0].enabled = isClientAudioOpen;      
+      clientMediaStream.getVideoTracks()[0].enabled = isClientVideoOpen;
 
-      if (isAudioOpen) {
+      if (isClientAudioOpen) {
         document.getElementById("muted-element").style.display = "none";
       } else {
         document.getElementById("muted-element").style.display = "flex";
       }
     }
-  }, [clientMediaStream, isAudioOpen, isVideoOpen]);
+  }, [clientMediaStream, isClientAudioOpen, isClientVideoOpen]);
 
   function handleSetIcon(IsPublic) {
     setIsPublicIcon(IsPublic);
@@ -113,24 +127,26 @@ export function useHome() {
 
   function enterRoom(event) {
     event.preventDefault();
-    if (name !== "") {
+    if (name !== "" && clientMediaStream) {
       setIsVideoInputOpen(false);
       addClientName(name);
+      history.push(`/room/${roomCode}`)
       setName("");
       setRoomCode("");
-
-      if (clientMediaStream) {
-        clientMediaStream.getTracks().forEach(track => {
-          track.stop();
-        });
-      }
-
       setVideoChangeSelected("");
     }
   }
 
   function handleSelectVideo(value) {
     setVideoChangeSelected(value);
+  }
+
+  function toggleClientVideo() {
+    setIsClientVideoOpen(!isClientVideoOpen);
+  }
+
+  function toggleClientAudio() {
+    setIsClientAudioOpen(!isClientAudioOpen);
   }
 
   return {
@@ -141,10 +157,10 @@ export function useHome() {
     handleInputNameChange,
     isVideoInputOpen,
     enterRoom,
-    isVideoOpen,
-    toggleVideo,
-    isAudioOpen,
-    toggleAudio,
+    isClientVideoOpen,
+    isClientAudioOpen,
+    toggleClientVideo,
+    toggleClientAudio,
     videoOptions,
     videoChangeSelected,
     handleSelectVideo,

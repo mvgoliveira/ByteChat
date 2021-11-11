@@ -2,7 +2,6 @@ import React from 'react';
 import {MdNavigateNext, MdNavigateBefore, MdOutlineKeyboardAlt, MdVideocam} from 'react-icons/md';
 import {FaMicrophoneSlash, FaVideo, FaVideoSlash} from "react-icons/fa"
 import {TiMicrophone} from "react-icons/ti"
-// import {AiOutlineLoading3Quarters} from 'react-icons/ai';
 import Select from "react-select";
 
 import { Container } from './styles';
@@ -21,10 +20,10 @@ export function Home() {
     handleInputNameChange,
     isVideoInputOpen,
     enterRoom,
-    isVideoOpen,
-    toggleVideo,
-    isAudioOpen,
-    toggleAudio,
+    isClientVideoOpen,
+    isClientAudioOpen,
+    toggleClientVideo,
+    toggleClientAudio,
     videoOptions,
     videoChangeSelected,
     handleSelectVideo,
@@ -37,7 +36,6 @@ export function Home() {
   return (
     <Container isInputFill={roomCode !== "" ? true : false}>
       <NameModal id="" isOpen={isNameInputOpen} isInputFill={name !== "" ? true : false}>
-        {/* <AiOutlineLoading3Quarters size={36} id="loading"/> */}
         <form className="buttonsContainer" onSubmit={openVideoModal}>
           <input
             id="nameInput"
@@ -51,7 +49,7 @@ export function Home() {
         </form>
       </NameModal>
 
-      <VideoModal isOpen={isVideoInputOpen} name={name}>
+      <VideoModal isOpen={isVideoInputOpen} name={name} >
         <div id="container-left">
           <div id="video-container">
             <span id="muted-element">Mudo</span>
@@ -61,14 +59,14 @@ export function Home() {
 
           <form id="video-controllers" onSubmit={enterRoom}>
             <section id="section-left">
-              { isVideoOpen
-                ? <button type="button" onClick={toggleVideo}><FaVideo/></button>
-                : <button type="button" onClick={toggleVideo}><FaVideoSlash/></button>
+              { isClientVideoOpen
+                ? <button type="button" onClick={toggleClientVideo}><FaVideo/></button>
+                : <button type="button" onClick={toggleClientVideo}><FaVideoSlash/></button>
               }
               
-              { isAudioOpen
-                ? <button type="button" onClick={toggleAudio}><TiMicrophone/></button>
-                : <button type="button" onClick={toggleAudio}><FaMicrophoneSlash/></button>
+              { isClientAudioOpen
+                ? <button type="button" onClick={toggleClientAudio}><TiMicrophone/></button>
+                : <button type="button" onClick={toggleClientAudio}><FaMicrophoneSlash/></button>
               }
             </section>
 

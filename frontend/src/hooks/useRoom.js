@@ -5,8 +5,9 @@ import Peer from "peerjs";
 
 import { createSocket } from "../services/socket";
 import { useAuth } from "./useAuth";
+import { useHome } from "./useHome";
 
-export function useRoom(roomId) {
+export function useRoom(roomCode) {
   const [socket, setSocket] = useState(null);
   const history = useHistory();
 
@@ -46,25 +47,31 @@ export function useRoom(roomId) {
   }, []);
 
   useEffect(() => {
-    if (socket === null && roomId) {
-      setSocket(createSocket());
+    if (socket === null && roomCode) {
+      const socket = createSocket(); 
+      
+      socket.on('connect', () => {
+        setSocket(socket);  
+      });
     }
-  }, [socket]);
+  }, [socket, roomCode]);
 
   useEffect(() => {
     async function startClientVideo(){   
-      if (clientUsername !== "" && socket !== null) {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          audio: true,
-          video: true
-        });
+      if (clientUsername !== "" && socket && roomCode) {
+        if (!clientMediaStream) {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+            video: true
+          });
+          addClientMediaStream(stream);
+        }
 
-        addClientVideo(stream, clientUsername, socket.id);
-        addClientMediaStream(stream);
+        addClientVideo(clientMediaStream, clientUsername, socket.id);
       } 
     }
     startClientVideo();
-  }, [clientUsername, socket]);
+  }, [clientUsername, socket, clientMediaStream]);
 
   useEffect(() => {
     if (clientMediaStream !== null && socket !== null && !videoChangeSelected.value) {
@@ -75,7 +82,7 @@ export function useRoom(roomId) {
       });
 
       peer.on("open", (peerId) => {  
-        socket.emit("join-room", {peerId, roomId, username: clientUsername});
+        socket.emit("join-room", {peerId, roomCode, username: clientUsername});
       });
 
       addClientPeer(peer);
@@ -83,7 +90,7 @@ export function useRoom(roomId) {
   }, [clientMediaStream, socket]);
 
   useEffect(() => {
-    if (clientPeer && clientMediaStream !== null) {     
+    if (clientPeer && clientMediaStream !== null && roomCode) {     
       socket.on("user-connected", ({peerId, name, socketID}) => {
 
         if (clientMediaStream.active === true) {
@@ -126,7 +133,7 @@ export function useRoom(roomId) {
       }
 
       socket.on("find-room-by-socketID", (socketId) => {
-        socket.emit("disconnect-user", {socketId, roomId});
+        socket.emit("disconnect-user", {socketId, roomCode});
       });
 
       socket.on("toggle-user-audio", ({socketId, isAudioOpen}) => {
@@ -150,20 +157,20 @@ export function useRoom(roomId) {
   }, [clientPeer, clientMediaStream]);
 
   useEffect(() => {
-    if (clientMediaStream && roomId) {
+    if (clientMediaStream && roomCode && clientPeer) {
       clientMediaStream.getAudioTracks()[0].enabled = isAudioOpen;
 
-      socket.emit("toggle-audio", {roomId, isAudioOpen});
+      socket.emit("toggle-audio", {roomCode, isAudioOpen});
 
       togglePeerAudio(socket.id, !isAudioOpen);
       
       clientMediaStream.getVideoTracks()[0].enabled = isVideoOpen;
     }
-  }, [clientMediaStream, isAudioOpen, isVideoOpen]);
+  }, [clientMediaStream, isAudioOpen, isVideoOpen, clientPeer]);
   
   useEffect(() => {
     async function newStream() {
-      if (videoChangeSelected.value && clientMediaStream && roomId) {
+      if (videoChangeSelected.value && clientMediaStream && roomCode) {
 
         clientMediaStream.getTracks().forEach(track => {
           track.stop();
@@ -186,7 +193,7 @@ export function useRoom(roomId) {
   }, [videoChangeSelected]);
   
   useEffect(() => {
-    if (clientMediaStream && videoChangeSelected.value && clientMediaStream.active === true && roomId) {
+    if (clientMediaStream && videoChangeSelected.value && clientMediaStream.active === true && roomCode && socket) {
       const videoContainer = document.getElementById("VIDEO-CONTAINER-" + socket.id);
 
       if (videoContainer) {
@@ -194,10 +201,9 @@ export function useRoom(roomId) {
         addClientVideo(clientMediaStream, clientUsername, socket.id);
       }
     }
-  }, [clientMediaStream, videoChangeSelected]);
+  }, [clientMediaStream, videoChangeSelected, socket]);
 
   function addPeerVideo(mediaStream, username, socketId) {   
-    
     if (!(document.getElementById("VIDEO-CONTAINER-" + socketId))) {  
       const videoGrid = document.getElementById("video_grid");
       
@@ -278,7 +284,6 @@ export function useRoom(roomId) {
 
   function togglePeerAudio(socketId, isMuted) {
     const mutedComponent = document.getElementById("MUTED-COMPONENT-" + socketId);
-    
     if (mutedComponent) {
       if (isMuted) {
         mutedComponent.style.display = "flex";

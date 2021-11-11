@@ -23,8 +23,7 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   padding: 15px;
-  background: rgba(0,0,0,0.2);
-  backdrop-filter: blur(1px);
+  background: rgba(0,0,0,0.6);
   
   display: ${props => props.isOpen ? "flex" : "none"};
   align-items: center;
