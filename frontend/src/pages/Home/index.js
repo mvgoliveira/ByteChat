@@ -22,7 +22,10 @@ export function Home() {
 
   const {
     clientPeer,
-    addClientPeer
+    addClientPeer,
+    removeClientName,
+    login,
+    logout
   } = useAuth();
 
   function handleSetIcon(IsPublic) {
@@ -36,6 +39,7 @@ export function Home() {
   useEffect(() => {
     setRoomCode("");
     setName("");
+    removeClientName();
   }, []);
 
   useEffect(() => {
@@ -44,6 +48,10 @@ export function Home() {
       addClientPeer(null);
     }
   }, [clientPeer]);
+
+  function handleLogin() {
+    login("markusvi17@gmail.com", "23200007");
+  }
 
   return (
     <Container isInputFill={roomCode !== "" ? true : false}>
@@ -55,7 +63,7 @@ export function Home() {
           <h1> ByteChat </h1>
         </div>
         <div id="header-right">
-          <button type="button">Fazer Login</button>
+          <button type="button" onClick={handleLogin}>Fazer Login</button>
         </div>
       </header>
 

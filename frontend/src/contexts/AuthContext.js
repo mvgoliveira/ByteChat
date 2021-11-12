@@ -1,38 +1,87 @@
 import { createContext, useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
+import jwt from 'jsonwebtoken';
+import Cookies from 'js-cookie';
+
+import { api } from '../services/api';
 
 export const AuthContext = createContext({});
 
 export function AuthContextProvider(props) {
+  const [isValidating, setIsValidating] = useState(false);
+  const [error, setError] = useState(false);
+
+  const [clientData, setClientData] = useState(null);
   const [clientUsername, setClientUsername] = useState("");
   const [clientMediaStream, setClientMediaStream] = useState(null);
-  const [cookies, setCookies] = useCookies(['clientUsername']);
   const [clientPeer, setClientPeer] = useState(null); 
+
+  useEffect(() => {
+    const token = Cookies.get('token');
+
+    if (token) {
+      try {
+        const verify = jwt.verify(token, process.env.REACT_APP_TOKEN_SECRET);
+        
+        setClientData({
+          id: verify.id,
+          email: verify.email
+        });
+      } catch (error) {}
+    }
+  }, []);
+
+  useEffect(() => {
+    if (clientData) {
+      setIsValidating(false);
+    }
+  }, [clientData]);
 
   function addClientPeer(peer) {
     setClientPeer(peer);
   }
 
-  useEffect(() => {
-    if (cookies.clientUsername !== undefined) {
-      setClientUsername(cookies.clientUsername);
-    }
-  }, [cookies.clientUsername])
-
   function addClientName(clientUsername) {
     setClientUsername(clientUsername);
-    setCookies('clientUsername', clientUsername);
     return;
   }
 
   function removeClientName() {
     setClientUsername("");
-    setCookies('clientUsername', "");
     return;
   }
 
   function addClientMediaStream(stream) {
     setClientMediaStream(stream);
+  }
+
+  const login = async (email, password) => {
+    setIsValidating(true);
+    let userData = null;
+    
+    try {
+      const { data } = await api.post('/login', { email, password });
+      
+      Cookies.set('token', data.token, { expires: 60 });
+      api.defaults.headers.Authorization = `Bearer ${data.token}`
+
+      const verify = jwt.verify(data.token, process.env.REACT_APP_TOKEN_SECRET);
+
+      userData = { 
+        id: verify.id, 
+        email,
+      };
+
+      setClientData(userData);
+
+    } catch (error) {
+      setError(true);  
+      setIsValidating(false);
+    }
+ }
+
+ function logout() {
+    Cookies.remove('token');
+    delete api.defaults.headers.Authorization
   }
 
   return (
@@ -43,7 +92,12 @@ export function AuthContextProvider(props) {
       clientMediaStream, 
       addClientMediaStream,
       clientPeer,
-      addClientPeer
+      addClientPeer,
+      login,
+      logout,
+      isValidating,
+      error,
+      clientData
     }}>
       { props.children }
     </AuthContext.Provider>

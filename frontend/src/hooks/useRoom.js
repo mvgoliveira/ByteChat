@@ -45,14 +45,6 @@ export function useRoom(roomCode) {
   useEffect(() => {
     async function startClientVideo(){   
       if (clientUsername !== "" && socket && roomCode) {
-        if (!clientMediaStream) {
-          const stream = await navigator.mediaDevices.getUserMedia({
-            audio: true,
-            video: true
-          });
-          addClientMediaStream(stream);
-        }
-
         addClientVideo(clientMediaStream, clientUsername, socket.id);
       } 
     }
@@ -290,7 +282,6 @@ export function useRoom(roomCode) {
 
   async function disconnect() {
     removeClientName();
-
     clientMediaStream.getTracks().forEach(function(track) {
       track.stop();
     });

@@ -71,10 +71,8 @@ export function SettingsModal({ isOpen, children }) {
 
   const { 
     addClientName,
-    removeClientName, 
     clientMediaStream, 
-    addClientMediaStream,
-    clientUsername
+    addClientMediaStream
   } = useAuth();
 
   useEffect(() => {
@@ -88,8 +86,6 @@ export function SettingsModal({ isOpen, children }) {
   }
 
   useEffect(() => {
-    removeClientName();
-
     handleSelectVideo("");
 
     if (clientMediaStream) {
