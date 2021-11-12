@@ -9,6 +9,7 @@ export const AuthContext = createContext({});
 export function AuthContextProvider(props) {
   const [isValidating, setIsValidating] = useState(false);
   const [error, setError] = useState(false);
+  const [isRegistred, setIsRegistred] = useState(false);
 
   const [clientData, setClientData] = useState(null);
   const [clientUsername, setClientUsername] = useState("");
@@ -54,7 +55,7 @@ export function AuthContextProvider(props) {
     setClientMediaStream(stream);
   }
 
-  const login = async (email, password) => {
+  async function login (email, password) {
     setIsValidating(true);
     let userData = null;
     
@@ -87,6 +88,21 @@ export function AuthContextProvider(props) {
     setIsValidating(false);
   }
 
+  async function register(email, password, confirmPassword) {
+    try {
+      const { data } = await api.post('/users', { email, password, confirmPassword });
+
+      if (data) {
+        setIsRegistred(true);
+      }
+
+    } catch (error) {
+      setError(true);
+      setIsValidating(true);
+      setIsRegistred(false);
+    }
+  }
+
   return (
     <AuthContext.Provider value={{ 
       clientUsername, 
@@ -102,7 +118,9 @@ export function AuthContextProvider(props) {
       error,
       clientData,
       setError,
-      setIsValidating
+      setIsValidating,
+      register,
+      isRegistred
     }}>
       { props.children }
     </AuthContext.Provider>

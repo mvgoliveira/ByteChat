@@ -38,36 +38,41 @@ export const Container = styled.div`
       margin-bottom: 45px;
     }
 
-    input {
-      font-weight: 500;
-      font-size: 14px;
-      letter-spacing: 1px;
-      background: #fff;
-      padding: 13px 20px;
-      border-radius: 0.5em;
-      border: 2px solid #81899E;
-      margin-bottom: 20px;
-      font-family: 'Roboto', sans-serif;
-    }
-
-    button {
-      font: 500 0.9rem 'Poppins', sans-serif;
-      color: #fff;
-      background: var(--button);
-      cursor: pointer;
-      text-align: center;
-      border-radius: 0.5em;
-      padding: 15px 40px;
-      margin-top: 15px;
-
-      transition: background 150ms ease-in-out;
-
-      &:active {
-        transform: scale(0.98);
+    form {
+      display: flex;
+      flex-direction: column;
+    
+      input {
+        font-weight: 500;
+        font-size: 14px;
+        letter-spacing: 1px;
+        background: #fff;
+        padding: 13px 20px;
+        border-radius: 0.5em;
+        border: 2px solid #81899E;
+        margin-bottom: 20px;
+        font-family: 'Roboto', sans-serif;
       }
-
-      &:hover {
-        background: var(--button_hover);
+  
+      button {
+        font: 500 0.9rem 'Poppins', sans-serif;
+        color: #fff;
+        background: var(--button);
+        cursor: pointer;
+        text-align: center;
+        border-radius: 0.5em;
+        padding: 15px 40px;
+        margin-top: 15px;
+  
+        transition: background 150ms ease-in-out;
+  
+        &:active {
+          transform: scale(0.98);
+        }
+  
+        &:hover {
+          background: var(--button_hover);
+        }
       }
     }
   }
