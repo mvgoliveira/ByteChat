@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
+import { useHistory } from "react-router";
 import {MdNavigateNext, MdNavigateBefore, MdOutlineKeyboardAlt, MdVideocam} from 'react-icons/md';
-
+import {FaUserAlt} from 'react-icons/fa';
 import { Container } from './styles';
 import HomePublicIllustration from '../../images/svg/HomePublic.svg';
 import HomePrivateIllustration from '../../images/svg/HomePrivate.svg';
@@ -11,6 +12,8 @@ import { useAuth } from '../../hooks/useAuth';
 
 export function Home() {
   const [isPublicIcon, setIsPublicIcon] = useState(true);
+
+  const history = useHistory();
 
   const {
     openSettingsModal,
@@ -24,7 +27,7 @@ export function Home() {
     clientPeer,
     addClientPeer,
     removeClientName,
-    login,
+    clientData,
     logout
   } = useAuth();
 
@@ -49,10 +52,6 @@ export function Home() {
     }
   }, [clientPeer]);
 
-  function handleLogin() {
-    login("markusvi17@gmail.com", "23200007");
-  }
-
   return (
     <Container isInputFill={roomCode !== "" ? true : false}>
       <SettingsModal isOpen={isSettingsModalOpen}>
@@ -63,7 +62,15 @@ export function Home() {
           <h1> ByteChat </h1>
         </div>
         <div id="header-right">
-          <button type="button" onClick={handleLogin}>Fazer Login</button>
+          {clientData ? (
+            <>
+              <button type="button" onClick={logout}>Fazer Logout</button>
+              <FaUserAlt/>
+            </>
+          ) : (
+            <button type="button" onClick={() => history.push("/login")}>Fazer Login</button>
+          )}
+
         </div>
       </header>
 

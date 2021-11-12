@@ -21,4 +21,13 @@ export const GlobalStyle = createGlobalStyle`
   body, input, button, textarea {
     font: 400 1rem 'Roboto', sans-serif;
   }
+
+  :root {
+    --background: #FAFAFA;
+    --text: #222C3B;
+    --button: #284DE2;
+    --button_hover: #2544c2;
+    --button_theme:#222C3B;
+    --divider: #acb3c2;
+  }
 `;

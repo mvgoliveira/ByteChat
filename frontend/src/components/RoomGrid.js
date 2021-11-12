@@ -1,10 +1,10 @@
 import '../components/RoomGrid.css'
 
 function VideoContainer(props){
-    return(<div className="video-container">{props.children}</div>);
+    return(<div id="video-container">{props.children}</div>);
 }
 
-let peopleConnected = 5;
+let peopleConnected = 7;
 
 export function Grid(){
     switch (peopleConnected) {

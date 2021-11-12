@@ -13,7 +13,7 @@ export function CustomSwitch() {
         <Route path="/" exact component={Home}/>
         <Route path="/login" component={Login}/>
         <Route path="/register" component={Register}/>
-        <Route path="/room" component={Room}/>
+        <Route path="/room/:roomCode" exact component={Room}/>
       </Switch>
     </>
   )

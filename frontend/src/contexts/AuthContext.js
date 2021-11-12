@@ -82,6 +82,9 @@ export function AuthContextProvider(props) {
  function logout() {
     Cookies.remove('token');
     delete api.defaults.headers.Authorization
+    setClientData(null);
+    setError(false);
+    setIsValidating(false);
   }
 
   return (
@@ -97,7 +100,9 @@ export function AuthContextProvider(props) {
       logout,
       isValidating,
       error,
-      clientData
+      clientData,
+      setError,
+      setIsValidating
     }}>
       { props.children }
     </AuthContext.Provider>

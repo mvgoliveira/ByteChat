@@ -40,6 +40,7 @@ export const Container = styled.div`
       height: 100%;
       display: flex;
       align-items: center;
+      gap: 50px;
       
       button {
         font: 500 1rem 'Poppins', sans-serif;
@@ -56,6 +57,12 @@ export const Container = styled.div`
         :active {
           transform: scale(1.01);
         }
+      }
+
+      svg {
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
       }
     }
 

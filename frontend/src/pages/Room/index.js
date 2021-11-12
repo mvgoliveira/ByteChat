@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import Select from "react-select";
+// import Select from "react-select";
 import {FaMicrophoneSlash, FaVideo, FaVideoSlash, FaPhoneSlash} from "react-icons/fa"
 import {TiMicrophone} from "react-icons/ti"
 
@@ -19,8 +19,8 @@ export function Room({match}) {
     toggleVideo, 
     isAudioOpen, 
     isVideoOpen, 
-    videoChangeSelected, 
-    setVideoChangeSelected
+    // videoChangeSelected, 
+    // setVideoChangeSelected
   } = useRoom(roomCode);
 
   const {
@@ -31,12 +31,12 @@ export function Room({match}) {
     setRoomCode,
     openSettingsModal,
     setIsComplete,
-    videoOptions
+    // videoOptions
   } = useSettings();
 
-  function handleSelectVideo(value) {
-    setVideoChangeSelected(value);
-  }
+  // function handleSelectVideo(value) {
+  //   setVideoChangeSelected(value);
+  // }
 
   useEffect(() => {
     setIsComplete(false);
@@ -74,18 +74,18 @@ export function Room({match}) {
             }
 
             <button id="disconnect-button" onClick={disconnect}><FaPhoneSlash/></button>
-
-            <div className="select-container">
-              <Select 
-                options={videoOptions} 
-                value={videoChangeSelected} 
-                onChange={handleSelectVideo}
-                menuPlacement="top"
-              />
-            </div>
           </div>
         </>
       )}
     </Container>
   );
 }
+
+{/* <div className="select-container">
+  <Select 
+    options={videoOptions} 
+    value={videoChangeSelected} 
+    onChange={handleSelectVideo}
+    menuPlacement="top"
+  />
+</div> */}

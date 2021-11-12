@@ -22,7 +22,7 @@
 
 /* Container de vídeo */
 
-.video-container {
+#video-container {
     background-color: #222C3B;
     min-width: 300px;
     height: 180px;

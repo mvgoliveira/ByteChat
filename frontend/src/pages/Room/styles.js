@@ -27,7 +27,7 @@ export const Container = styled.div`
 
   .controllers {
     display: flex;
-    gap: 10px;
+    gap: 35px;
     
     button {
       display: flex;
@@ -39,8 +39,16 @@ export const Container = styled.div`
       transition: background 250ms ease-in-out, transform 150ms ease;
       -webkit-appearance: none;
       -moz-appearance: none;
-      width: 70px;
-      height: 70px;
+      width: 60px;
+      height: 60px;
+
+      :hover {
+        background: #0053ba;
+      }
+
+      :active {
+        transform: scale(0.95);
+      }
 
       svg {
         width: 30px;
@@ -100,20 +108,6 @@ export const Container = styled.div`
         margin-bottom: -25px;
       }
     }
-  }
-
-  button:hover,
-  button:focus {
-    background: #0053ba;
-  }
-
-  button:focus {
-    outline: 1px solid #fff;
-    outline-offset: -4px;
-  }
-
-  button:active {
-    transform: scale(0.99);
   }
 
   @media (max-width: 700px) {
