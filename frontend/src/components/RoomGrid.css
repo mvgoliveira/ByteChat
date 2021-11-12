@@ -1,0 +1,31 @@
+
+/* Casos Especiais*/
+
+.video-grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* Caso Geral */
+
+.video-grid {
+    /* display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px; */
+    display: flex;
+    gap: 15px;
+    max-width: 930px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Container de vídeo */
+
+.video-container {
+    background-color: #222C3B;
+    min-width: 300px;
+    height: 180px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.5);
+}

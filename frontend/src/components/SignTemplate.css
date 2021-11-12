@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;900&display=swap');
+@import '../styles/theme.css';
+
+.sign_page {
+    background-color: var(--background);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0px;
+    user-select: none;
+}
+
+.sign_view {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 350px;
+    margin-left: 5px;
+}
+
+.sign_image {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 400px;
+}
+
+.title {
+    /* padding-top: 40px; */
+    color: var(--text);
+    font-weight: 900;
+    font-size: 28px;
+    margin: 0;
+}
+
+.subtitle {
+    /* padding-top: 40px; */
+    color: var(--text);
+    font-weight: 600;
+    font-size: 18px;
+    margin-top: 2%;
+    margin-bottom: 10%;
+}
+
+.underline_text {
+    color: var(--text);
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    margin: 20px;
+}
+
+.un {color: rgb(38, 50, 56);font-weight: 700;font-size: 14px;letter-spacing: 1px;background: white;padding: 13px 20px;border-radius: 0.5em;border: 2px solid rgba(0, 0, 0, 0.3);margin-bottom: 20px;font-family: 'Roboto', sans-serif;}
+
+.pass {color: rgb(38, 50, 56);font-weight: 700;font-size: 14px;letter-spacing: 1px;background: white;padding: 13px 20px;border-radius: 0.5em;border: 2px solid rgba(0, 0, 0, 0.3);margin-bottom: 20px;font-family: 'Roboto', sans-serif;}
+
+
+.un:focus, .pass:focus {
+    border: 2px solid rgba(0, 0, 0, 0.18) !important;   
+}
+
+.submit {
+  color: white;
+  font-weight: 600;
+  background: #284DE2;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 0.5em;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  letter-spacing: 0.3px;
+  font-size: 13px;
+  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+}
+
+.submit:active {
+    transform: scale(0.98);
+}
+
+.submit:hover {
+    background-color: #1632A2;
+}
+
+.text {
+      color: var(--divider);
+  }
+
+.register {
+    text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+    color: #284DE2;
+    text-decoration: none;
+}
+
+.register:hover {
+    color: #1632A2;
+}
