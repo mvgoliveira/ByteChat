@@ -9,9 +9,11 @@ import { useSettings } from "../../hooks/useSettings";
 import { useAuth } from "../../hooks/useAuth";
 import { useEffect } from "react";
 import { SettingsModal } from "../../Components/Modals";
+import { useHistory } from "react-router";
 
 export function Room({match}) {
-  const {params: { roomCode }} = match;
+  const {params: { room_code }} = match;
+  const history = useHistory();
 
   const {
     disconnect, 
@@ -21,7 +23,7 @@ export function Room({match}) {
     isVideoOpen, 
     // videoChangeSelected, 
     // setVideoChangeSelected
-  } = useRoom(roomCode);
+  } = useRoom(room_code);
 
   const {
     clientUsername
@@ -31,6 +33,11 @@ export function Room({match}) {
     setRoomCode,
     openSettingsModal,
     setIsComplete,
+    isSettingsModalOpen,
+    setIsSettingsModalOpen,
+    handleEnterRoom,
+    roomCode,
+    error
     // videoOptions
   } = useSettings();
 
@@ -39,20 +46,26 @@ export function Room({match}) {
   // }
 
   useEffect(() => {
+    setRoomCode(room_code);
     setIsComplete(false);
-  }, [])
+  }, []);
+  
+  useEffect(() => {
+    if (roomCode && !clientUsername) {
+      handleEnterRoom();
+    }
+  }, [roomCode, clientUsername]);
 
   useEffect(() => {
-    if (!clientUsername) {
-      setRoomCode(roomCode);
-      openSettingsModal();
+    if (error) {
+      history.replace('/');
     }
-  }, [clientUsername]);
+  }, [error])
 
   return (
     <Container>
       { clientUsername === "" ? (
-        <SettingsModal isOpen={true}>
+        <SettingsModal isOpen={isSettingsModalOpen}>
         </SettingsModal>
       ) : (
         <>

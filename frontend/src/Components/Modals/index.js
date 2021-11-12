@@ -77,7 +77,7 @@ export function SettingsModal({ isOpen, children }) {
 
   useEffect(() => {
     setIsNameModalOpen(isOpen);
-  }, [isOpen])
+  }, [isOpen]);
 
   function openVideoModal(event) {
     event.preventDefault();

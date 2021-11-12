@@ -16,11 +16,11 @@ export function Home() {
   const history = useHistory();
 
   const {
-    openSettingsModal,
     isSettingsModalOpen,
     setRoomCode,
     roomCode,
-    setName
+    setName,
+    handleEnterRoom
   } = useSettings();
 
   const {
@@ -81,7 +81,7 @@ export function Home() {
           <button type="button"> <MdVideocam size={25}/> Criar uma reunião</button>
           
           <article>
-            <form onSubmit={openSettingsModal}>
+            <form onSubmit={handleEnterRoom}>
               <div id="input-container">
                 <MdOutlineKeyboardAlt size={25} color={roomCode !== "" ? "#284DE2" : "#81899E" }/>
                 <input 

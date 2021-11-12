@@ -3,9 +3,13 @@ import { createContext, useEffect, useState } from 'react';
 
 import { useAuth } from '../hooks/useAuth';
 
+import { api } from '../services/api';
+
 export const SettingsContext = createContext({});
 
 export function SettingsContextProvider(props) {
+  const [isValidating, setIsValidating] = useState(false);
+  const [error, setError] = useState(false);
 
   const [name, setName] = useState("");
   const [roomCode, setRoomCode] = useState("");
@@ -109,9 +113,24 @@ export function SettingsContextProvider(props) {
     setIsClientAudioOpen(!isClientAudioOpen);
   }
 
-  function openSettingsModal(event) {
+  async function handleEnterRoom(event) {
     event && event.preventDefault();
+    setIsValidating(true);
+    setError(false);
+
     if (roomCode !== "") {
+      try {
+        const {data} = await api.get(`/rooms/${roomCode}`);
+        openSettingsModal(data.roomCode);
+      } catch (error) {
+        setIsValidating(false);
+        setError(true);
+      }
+    }
+  }
+
+  function openSettingsModal(room_code) {
+    if (room_code) {
       const roomInput = document.getElementById("roomInput");
       roomInput && roomInput.blur();
       setIsSettingsModalOpen(true);
@@ -138,7 +157,10 @@ export function SettingsContextProvider(props) {
       setIsClientAudioOpen,
       setIsClientVideoOpen,
       isComplete,
-      setIsComplete
+      setIsComplete,
+      handleEnterRoom,
+      isValidating,
+      error
     }}>
       { props.children }
     </SettingsContext.Provider>
