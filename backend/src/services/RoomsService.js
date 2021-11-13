@@ -2,7 +2,7 @@ import { RoomModel } from "../models/Room";
 
 class RoomsService {
   
-  async create (roomCode, adminId, isPrivate, connections) {
+  async create (roomCode, adminId, isPrivate, usersAllowed) {
     const RoomExists = await RoomModel.findOne({ roomCode });
 
     if (RoomExists) {
@@ -13,7 +13,7 @@ class RoomsService {
       adminId,
       roomCode,
       private: isPrivate,
-      connections
+      usersAllowed
     });
 
     return room; 
@@ -25,7 +25,8 @@ class RoomsService {
       .select('roomCode')
       .select('connections')
       .select('private')
-      .select('usersAllowed');
+      .select('usersAllowed')
+      .select('adminId');
 
     return rooms;
   }

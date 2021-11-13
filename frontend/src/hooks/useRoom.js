@@ -14,6 +14,8 @@ export function useRoom(roomCode) {
   const [isAudioOpen, setIsAudioOpen] = useState(true);
   const [isVideoOpen, setIsVideoOpen] = useState(true);
 
+  const [roomUsersAllowed, setRoomUsersAllowed] = useState(null);
+
   const [videoChangeSelected, setVideoChangeSelected] = useState({});
   
   const {
@@ -68,7 +70,7 @@ export function useRoom(roomCode) {
   }, [clientMediaStream, socket]);
 
   useEffect(() => {
-    if (clientPeer && clientMediaStream !== null && roomCode) {     
+    if (clientPeer && clientMediaStream !== null && roomCode && socket) {     
       socket.on("user-connected", ({peerId, name, socketID}) => {
 
         if (clientMediaStream.active === true) {
@@ -135,7 +137,7 @@ export function useRoom(roomCode) {
   }, [clientPeer, clientMediaStream]);
 
   useEffect(() => {
-    if (clientMediaStream && roomCode && clientPeer) {
+    if (clientMediaStream && roomCode && clientPeer && socket) {
       clientMediaStream.getAudioTracks()[0].enabled = isAudioOpen;
 
       socket.emit("toggle-audio", {roomCode, isAudioOpen});
@@ -220,6 +222,7 @@ export function useRoom(roomCode) {
 
   function addClientVideo(mediaStream, username, socketId) {
     if (!(document.getElementById("NAME-COMPONENT-" + username))) {  
+
       const videoGrid = document.getElementById("video_grid");
       
       const videoContainer = document.createElement("div");
@@ -297,6 +300,8 @@ export function useRoom(roomCode) {
     isAudioOpen, 
     isVideoOpen, 
     videoChangeSelected, 
-    setVideoChangeSelected
+    setVideoChangeSelected,
+    setRoomUsersAllowed,
+    roomUsersAllowed
   }
 }

@@ -256,3 +256,80 @@ export const RoomTypeContainer = styled.div`
 
 
 `;
+
+export const RoomSettingsContainer = styled.div`
+  width: 600px;
+  height: 450px;
+  background: #fafafa;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  border-radius: 8px;
+  padding-left: 50px;
+  overflow: auto;
+
+  #containerTop {
+    width: 100%;
+    padding: 35px 0;
+
+    span {
+      font: bold 1.6rem 'Poppins', sans-serif;
+      width: 100%;
+      padding-top: 35px;
+      padding-bottom: 35px;
+    }
+  }
+
+  #containerMiddle {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 1;
+    padding-top: 15px;
+
+    p {
+      font: 500 1.2rem 'roboto', sans-serif;
+      margin-bottom: 15px;
+    }
+  
+    #UsersSelectContainer {
+      max-width: 480px;
+    }
+    
+    #CamSelectContainer {
+      margin-bottom: 35px;
+      p {
+        margin-top: 25px;
+      }
+
+      max-width: 480px;
+    }
+  }
+
+  #containerBottom {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    gap: 15px;
+
+    button {
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #284DE2;
+      height: 55px;
+      border-radius: 8px;
+      padding: 0 30px;
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+
+    #cancelButton {
+      background: #81899E;
+    }
+  }
+`;

@@ -65,9 +65,8 @@ export function Home() {
 
   return (
     <Container isInputFill={roomCode !== "" ? true : false}>
-      <RoomTypeModal isOpen={isRoomTypeModalOpen}></RoomTypeModal>
-      <SettingsModal isOpen={isSettingsModalOpen}>
-      </SettingsModal>
+      <RoomTypeModal isOpen={isRoomTypeModalOpen}/>
+      <SettingsModal isOpen={isSettingsModalOpen}/>
 
       <header>
         <div id="header-left">

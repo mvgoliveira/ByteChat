@@ -17,12 +17,6 @@ const RoomSchema = new mongoose.Schema({
     default: false
   },
 
-  connections: {
-    type: Number,
-    required: true,
-    default: 0
-  },
-
   usersAllowed: {
     type: [String],
     required: false

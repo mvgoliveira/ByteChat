@@ -3,9 +3,8 @@ import { createContext, useEffect, useState } from 'react';
 import {toast} from 'react-toastify';
 
 import { useAuth } from '../hooks/useAuth';
+import { useRoom } from '../hooks/useRoom';
 import { api } from '../services/api';
-
-
 
 export const SettingsContext = createContext({});
 
@@ -31,6 +30,10 @@ export function SettingsContextProvider(props) {
     addClientMediaStream,
     clientData
   } = useAuth();
+  
+  const {
+    setIsPrivateRoom
+  } = useRoom(roomCode);
 
   useEffect(() => {    
     async function getVideoTracks() {
@@ -118,7 +121,7 @@ export function SettingsContextProvider(props) {
 
   function openSettingsModal(room_code) {
     setRoomCode(room_code);
-    
+
     if (room_code) {
       const roomInput = document.getElementById("roomInput");
       roomInput && roomInput.blur();
@@ -145,7 +148,7 @@ export function SettingsContextProvider(props) {
 
   async function handleCreateRoom(isPrivate) {
     try {
-      const {data} = await api.post("/room", {isPrivate, adminId: clientData.id});
+      const {data} = await api.post("/room", {isPrivate, adminId: clientData.id, usersAllowed: [clientData.email]});
       openSettingsModal(data.roomCode);
     } catch (error) {
       toast.error("Server Error");

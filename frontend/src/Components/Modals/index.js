@@ -9,7 +9,14 @@ import Select from "react-select";
 import publicIllustration from "../../images/svg/Public.svg";
 import privateIllustration from "../../images/svg/Private.svg";
 
-import { Container, NameModalContainer, VideoModalContainer, RoomTypeContainer } from "./styles";
+import { 
+  Container, 
+  NameModalContainer,
+  VideoModalContainer,
+  RoomTypeContainer,
+  RoomSettingsContainer 
+} from "./styles";
+
 import { useSettings } from '../../hooks/useSettings';
 import { useAuth } from "../../hooks/useAuth";
 
@@ -51,7 +58,7 @@ function VideoModal({ isOpen, name, children }) {
   )
 }
 
-export function SettingsModal({ isOpen, children }) {
+export function SettingsModal({ isOpen }) {
   const history = useHistory();
 
   const [isNameModalOpen, setIsNameModalOpen] = useState(isOpen);
@@ -163,13 +170,11 @@ export function SettingsModal({ isOpen, children }) {
           />
         </div>
       </VideoModal>
-
-      {children}
     </>
   )
 }
 
-export function RoomTypeModal({isOpen, children}) {
+export function RoomTypeModal({ isOpen }) {
   const [isRoomTypeModalOpen, setIsRoomTypeModalOpen] = useState(isOpen);
 
   const {
@@ -202,6 +207,22 @@ export function RoomTypeModal({isOpen, children}) {
           </section>
         </div>
       </RoomTypeContainer>
+    </Container>
+  );
+}
+
+export function RoomSettingsModal({ isOpen, children }) {
+  const [isRoomSettingsModalOpen, setIsRoomSettingsModalOpen] = useState(isOpen);
+  
+  useEffect(() => {
+    setIsRoomSettingsModalOpen(isOpen);
+  }, [isOpen]);
+  
+  return (
+    <Container isOpen={isRoomSettingsModalOpen}>
+      <RoomSettingsContainer>
+        {children}
+      </RoomSettingsContainer>
     </Container>
   );
 }
