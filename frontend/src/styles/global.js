@@ -21,6 +21,24 @@ export const GlobalStyle = createGlobalStyle`
     font: 400 1rem 'Roboto', sans-serif;
   }
 
+  body::-webkit-scrollbar {
+    width: 10px;
+    height: 50%;
+    background: #FAFAFA;
+  }
+
+  body::-webkit-scrollbar-track {
+    background: #000;
+    border: 4px solid transparent;
+    background-clip: content-box;
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background: var(--divider);
+    height: 10px;
+    
+  }
+
   :root {
     --background: #FAFAFA;
     --text: #222C3B;

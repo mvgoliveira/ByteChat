@@ -65,17 +65,39 @@ export const Container = styled.div`
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    max-width: 85vw;
+    max-height: 480px;
+    overflow: auto;
+    gap: 15px;
+
+    &::-webkit-scrollbar {
+      width: 10px;
+      height: 50%;
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #000;
+      border: 4px solid transparent;
+      background-clip: content-box;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--divider);
+      height: 10px;
+    }
 
     .video_container {
       display: flex;
       flex-direction: column;
+      border-radius: 10px;
 
       video {
         object-fit: cover;
-        height: 260px;
+        width: 350px;
+        height: 220px;
         border-radius: 1rem;
         margin: 0.5rem;
-        width: 400px;
         transform: rotateY(180deg);
         -webkit-transform: rotateY(180deg);
         -moz-transform: rotateY(180deg);
