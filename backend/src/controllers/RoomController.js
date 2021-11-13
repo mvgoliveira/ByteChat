@@ -6,10 +6,15 @@ class RoomController {
     const {adminId, isPrivate, connections} = req.body;
     
     const chance = new Chance();
-    let roomCode = chance.natural({ min: 10000, max: 99999});
-    roomCode = roomCode + chance.string({ length: 5 });
+    let roomCode = chance.string({ length: 10, casing: 'upper', alpha: true, numeric: true });
 
     const roomsService = new RoomsService();
+
+    const roomExists = await roomsService.findOne(roomCode);
+
+    if (roomExists) {
+      this.create();
+    }
 
     try {
       const room = await roomsService.create(roomCode, adminId, isPrivate, connections);
