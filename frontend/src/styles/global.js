@@ -15,7 +15,6 @@ export const GlobalStyle = createGlobalStyle`
     border: none;
     background: transparent;
     cursor: pointer;
-    width: 100%;
   }
 
   body, input, button, textarea {

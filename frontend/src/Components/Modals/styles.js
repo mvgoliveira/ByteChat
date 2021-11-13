@@ -195,3 +195,64 @@ export const VideoModalContainer = styled.div`
     }
   }
 `;
+
+export const RoomTypeContainer = styled.div`
+  width: 750px;
+  height: 450px;
+  background: #fafafa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+
+  span {
+    font: bold 1.6rem 'Poppins', sans-serif;
+    width: 100%;
+    padding-left: 50px;
+    padding-top: 35px;
+    padding-bottom: 35px;
+  }
+
+  #containerBottom {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 50px;
+
+    #containerRight {
+      border-left: 1px solid #222;
+    }
+    
+    section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+
+      img {
+        width: 110px;
+        height: 110px;
+        margin-top: 50px;
+      }
+
+      button {
+        background: #284de2;
+        width: 130px;
+        padding: 10px;
+        border-radius: 8px;
+        margin-top: 40px;
+
+        &:active {
+          transform: scale(0.98);
+        }
+
+        color: #fff;
+        font: 500 1rem 'Poppins', sans-serif;
+      }
+    }
+  }
+
+
+`;

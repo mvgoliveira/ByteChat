@@ -1,9 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useEffect, useState } from 'react';
+import {toast} from 'react-toastify';
 
 import { useAuth } from '../hooks/useAuth';
-
 import { api } from '../services/api';
+
+
 
 export const SettingsContext = createContext({});
 
@@ -27,6 +29,7 @@ export function SettingsContextProvider(props) {
   const {
     clientMediaStream,
     addClientMediaStream,
+    clientData
   } = useAuth();
 
   useEffect(() => {    
@@ -113,6 +116,16 @@ export function SettingsContextProvider(props) {
     setIsClientAudioOpen(!isClientAudioOpen);
   }
 
+  function openSettingsModal(room_code) {
+    setRoomCode(room_code);
+    
+    if (room_code) {
+      const roomInput = document.getElementById("roomInput");
+      roomInput && roomInput.blur();
+      setIsSettingsModalOpen(true);
+    }
+  }
+
   async function handleEnterRoom(event) {
     event && event.preventDefault();
     setIsValidating(true);
@@ -123,17 +136,19 @@ export function SettingsContextProvider(props) {
         const {data} = await api.get(`/rooms/${roomCode}`);
         openSettingsModal(data.roomCode);
       } catch (error) {
+        toast.error("Sala não existe");
         setIsValidating(false);
         setError(true);
       }
     }
   }
 
-  function openSettingsModal(room_code) {
-    if (room_code) {
-      const roomInput = document.getElementById("roomInput");
-      roomInput && roomInput.blur();
-      setIsSettingsModalOpen(true);
+  async function handleCreateRoom(isPrivate) {
+    try {
+      const {data} = await api.post("/room", {isPrivate, adminId: clientData.id});
+      openSettingsModal(data.roomCode);
+    } catch (error) {
+      toast.error("Server Error");
     }
   }
 
@@ -160,7 +175,8 @@ export function SettingsContextProvider(props) {
       setIsComplete,
       handleEnterRoom,
       isValidating,
-      error
+      error,
+      handleCreateRoom
     }}>
       { props.children }
     </SettingsContext.Provider>

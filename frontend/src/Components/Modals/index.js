@@ -6,7 +6,10 @@ import {MdNavigateNext} from 'react-icons/md';
 import {TiMicrophone} from "react-icons/ti"
 import Select from "react-select";
 
-import { Container, NameModalContainer, VideoModalContainer } from "./styles";
+import publicIllustration from "../../images/svg/Public.svg";
+import privateIllustration from "../../images/svg/Private.svg";
+
+import { Container, NameModalContainer, VideoModalContainer, RoomTypeContainer } from "./styles";
 import { useSettings } from '../../hooks/useSettings';
 import { useAuth } from "../../hooks/useAuth";
 
@@ -164,4 +167,41 @@ export function SettingsModal({ isOpen, children }) {
       {children}
     </>
   )
+}
+
+export function RoomTypeModal({isOpen, children}) {
+  const [isRoomTypeModalOpen, setIsRoomTypeModalOpen] = useState(isOpen);
+
+  const {
+    handleCreateRoom
+  } = useSettings();
+
+  useEffect(() => {
+    setIsRoomTypeModalOpen(isOpen);
+  }, [isOpen]);
+
+  function handleSendCreateRoom(isPrivate) {
+    setIsRoomTypeModalOpen(false);
+    handleCreateRoom(isPrivate);
+  }
+
+  return (
+    <Container isOpen={isRoomTypeModalOpen}>
+      <RoomTypeContainer>
+        <span>Escolha o tipo de sala</span>
+        
+        <div id="containerBottom">
+          <section id="containerLeft">
+            <img src={publicIllustration} alt="public illustration"></img>
+            <button type="button" onClick={() => handleSendCreateRoom(false)}> Sala Pública </button>
+          </section>
+          
+          <section id="containerRight">
+            <img src={privateIllustration} alt="public illustration"></img>
+            <button type="button" onClick={() => handleSendCreateRoom(true)}> Sala privada </button>
+          </section>
+        </div>
+      </RoomTypeContainer>
+    </Container>
+  );
 }

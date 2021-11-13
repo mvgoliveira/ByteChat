@@ -4,10 +4,13 @@ import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { Room } from './pages/Room';
 import { GlobalStyle } from './styles/global';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function CustomSwitch() {
   return (
     <> 
+      <ToastContainer enableMultiContainer autoClose={3000} />
       <GlobalStyle/>
       <Switch>
         <Route path="/" exact component={Home}/>

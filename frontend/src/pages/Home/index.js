@@ -7,11 +7,13 @@ import { Container } from './styles';
 import HomePublicIllustration from '../../images/svg/HomePublic.svg';
 import HomePrivateIllustration from '../../images/svg/HomePrivate.svg';
 import { useSettings } from '../../hooks/useSettings';
-import { SettingsModal } from '../../Components/Modals';
+import { SettingsModal, RoomTypeModal } from '../../Components/Modals';
 import { useAuth } from '../../hooks/useAuth';
+import { toast } from 'react-toastify';
 
 export function Home() {
   const [isPublicIcon, setIsPublicIcon] = useState(true);
+  const [isRoomTypeModalOpen, setIsRoomTypeModalOpen] = useState(false);
 
   const history = useHistory();
 
@@ -39,6 +41,15 @@ export function Home() {
     setRoomCode(event.target.value);
   }
 
+  function handleOpenCreateRoom() {
+    if (clientData) {
+      setIsRoomTypeModalOpen(true);
+    } else {
+      toast.error("Login é necessário");
+    }
+    
+  }
+
   useEffect(() => {
     setRoomCode("");
     setName("");
@@ -54,6 +65,7 @@ export function Home() {
 
   return (
     <Container isInputFill={roomCode !== "" ? true : false}>
+      <RoomTypeModal isOpen={isRoomTypeModalOpen}></RoomTypeModal>
       <SettingsModal isOpen={isSettingsModalOpen}>
       </SettingsModal>
 
@@ -78,7 +90,7 @@ export function Home() {
         <div id="section-left">
           <h2> Simplicidade e facilidade </h2>
           <p> Matenha-se conectado com seus amigos e família com rapidez e segurança. </p>
-          <button type="button"> <MdVideocam size={25}/> Criar uma reunião</button>
+          <button type="button" onClick={handleOpenCreateRoom}> <MdVideocam size={25}/> Criar uma reunião</button>
           
           <article>
             <form onSubmit={handleEnterRoom}>

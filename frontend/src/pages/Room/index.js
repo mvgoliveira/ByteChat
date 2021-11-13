@@ -31,10 +31,8 @@ export function Room({match}) {
 
   const {
     setRoomCode,
-    openSettingsModal,
     setIsComplete,
     isSettingsModalOpen,
-    setIsSettingsModalOpen,
     handleEnterRoom,
     roomCode,
     error
