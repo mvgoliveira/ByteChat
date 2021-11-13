@@ -4,7 +4,7 @@ import CreatableSelect from 'react-select/creatable';
 import Select from "react-select";
 import {FaMicrophoneSlash, FaVideo, FaVideoSlash, FaPhoneSlash} from "react-icons/fa"
 import {TiMicrophone} from "react-icons/ti"
-import {MdSettings} from "react-icons/md";
+import {MdSettings, MdOutlineContentCopy} from "react-icons/md";
 
 import { Container } from "./styles";
 import { useRoom } from "../../hooks/useRoom";
@@ -154,12 +154,34 @@ export function Room({match}) {
     setIsRoomSettingsModalOpen(false);
   }
 
+  function handleCopyLink() {
+    const { ClipboardItem } = window;
+    
+    navigator.permissions.query({ name: 'clipboard-write' }).then(result => {
+      if (result.state === 'granted') {
+          var blob = new Blob([room_code], {type: 'text/plain'});
+          var item = new ClipboardItem({'text/plain': blob});
+          navigator.clipboard.write([item]).then(function() {
+            toast.success("Código copiado", {
+              position: "bottom-right",
+              pauseOnHover: false
+            });
+          }, function(error) {
+            toast.error("erro");
+          });
+      } else {
+        console.log("clipboard-permissoin not granted: " + result);
+      }
+    });
+  }
+
   return (
     <Container>
       { clientUsername === "" ? (
         <SettingsModal isOpen={isSettingsModalOpen}/>
       ) : (
         <>
+          <button type="button" id="copyRoomCodeButton" onClick={handleCopyLink}><MdOutlineContentCopy/>Código da sala</button>
           <RoomSettingsModal isOpen={isRoomSettingsModalOpen} roomCode={room_code}>
             <div id="containerTop">
               <span>Configurações - Sala {isRoomPrivate ? "privada" : "pública"}</span>

@@ -11,6 +11,37 @@ export const Container = styled.div`
   justify-content: center;
   background-color: #18202D;
 
+  #copyRoomCodeButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 3;
+    top: 7%;
+    right: 5%;
+
+    font: 500 0.9rem 'Poppins', sans-serif;
+    padding: 9px 15px;
+    border: 2px solid #5373F5;
+    color: #5373F5;
+    border-radius: 8px;
+    
+    :hover {
+      border: 2px solid #4460d4;
+      color: #4460d4;
+    }
+
+    :active {
+      transform: scale(0.98);
+    }
+
+    svg {
+      width: 21px;
+      height: 21px;
+      margin-right: 10px;
+    }
+  }
+
   .select-container {
     width: 250px;
   }
