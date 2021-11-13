@@ -1,6 +1,4 @@
 # 💻🐺 ByteChat - Aplicação Web de vídeo chamadas [backend]
----
-
 
 ByteChat é um projeto de uma aplicação Web desenvolvida como metodo de avaliação e treinamento do processo trainee do RAMO IEE do CEFET/RJ.
  
