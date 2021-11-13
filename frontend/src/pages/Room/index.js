@@ -97,6 +97,7 @@ export function Room({match}) {
       let allowed = usersAllowed;
       roomUsersAllowed.map(user => {
         allowed = ([...allowed, {label: user, value: user}]);
+        return null;
       });
       setUsersAllowed(allowed);
     }
@@ -145,6 +146,7 @@ export function Room({match}) {
 
     usersAllowed.map(user => {
       allowed = [...allowed, user.value];
+      return null
     });
 
     api.put(`/room/${room_code}`, {usersAllowed: allowed});
@@ -159,47 +161,47 @@ export function Room({match}) {
       ) : (
         <>
           <RoomSettingsModal isOpen={isRoomSettingsModalOpen} roomCode={room_code}>
-              <div id="containerTop">
-                <span>Configurações - Sala {isRoomPrivate ? "privada" : "pública"}</span>
-              </div>
+            <div id="containerTop">
+              <span>Configurações - Sala {isRoomPrivate ? "privada" : "pública"}</span>
+            </div>
 
-              <div id="containerMiddle">
-                {(isRoomPrivate && roomAdminId === clientData.id) && (
-                  <>
-                    <p>usuários permitidos</p>
-                    <div id="UsersSelectContainer">
-                      <CreatableSelect
-                        components={{DropdownIndicator: null}}
-                        inputValue={userAllowed}
-                        isClearable
-                        isMulti
-                        menuIsOpen={false}
-                        onChange={handleChange}
-                        onInputChange={handleInputChange}
-                        onKeyDown={handleKeyDown}
-                        placeholder="Digite o email e pressione enter..."
-                        value={usersAllowed}
-                        id="Select-control" 
-                      />
-                    </div>
-                  </>
-                )}
+            <div id="containerMiddle">
+              {(isRoomPrivate && roomAdminId === clientData.id) && (
+                <>
+                  <p>usuários permitidos</p>
+                  <div id="UsersSelectContainer">
+                    <CreatableSelect
+                      components={{DropdownIndicator: null}}
+                      inputValue={userAllowed}
+                      isClearable
+                      isMulti
+                      menuIsOpen={false}
+                      onChange={handleChange}
+                      onInputChange={handleInputChange}
+                      onKeyDown={handleKeyDown}
+                      placeholder="Digite o email e pressione enter..."
+                      value={usersAllowed}
+                      id="Select-control" 
+                    />
+                  </div>
+                </>
+              )}
 
-                <section id="CamSelectContainer">
-                  <p>câmera</p>
-                  <Select 
-                    options={videoOptions} 
-                    value={videoChangeSelected} 
-                    onChange={handleSelectVideo}
-                    placeholder="Selecione sua câmera"
-                  />
-                </section>
-              </div>
+              <section id="CamSelectContainer">
+                <p>câmera</p>
+                <Select 
+                  options={videoOptions} 
+                  value={videoChangeSelected} 
+                  onChange={handleSelectVideo}
+                  placeholder="Selecione sua câmera"
+                />
+              </section>
+            </div>
 
-              <div id="containerBottom">
-                <button type="button" id="cancelButton" onClick={() => setIsRoomSettingsModalOpen(false)}>Cancelar</button>
-                <button type="button" onClick={handleConfirm}>Confirmar</button>
-              </div>
+            <div id="containerBottom">
+              <button type="button" id="cancelButton" onClick={() => setIsRoomSettingsModalOpen(false)}>Cancelar</button>
+              <button type="button" onClick={handleConfirm}>Confirmar</button>
+            </div>
           </RoomSettingsModal>
           
           <div className="videos_group">

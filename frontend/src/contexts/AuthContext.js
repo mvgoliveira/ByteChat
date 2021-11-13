@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 import jwt from 'jsonwebtoken';
 import Cookies from 'js-cookie';
+import {toast} from 'react-toastify';
 
 import { api } from '../services/api';
 
@@ -9,7 +10,7 @@ export const AuthContext = createContext({});
 export function AuthContextProvider(props) {
   const [isValidating, setIsValidating] = useState(false);
   const [error, setError] = useState(false);
-  const [isRegistred, setIsRegistred] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
 
   const [clientData, setClientData] = useState(null);
   const [clientUsername, setClientUsername] = useState("");
@@ -93,13 +94,14 @@ export function AuthContextProvider(props) {
       const { data } = await api.post('/users', { email, password, confirmPassword });
 
       if (data) {
-        setIsRegistred(true);
+        setIsRegistered(true);
       }
 
     } catch (error) {
+      toast.error("Não foi possível realizar o cadastro!");
       setError(true);
       setIsValidating(true);
-      setIsRegistred(false);
+      setIsRegistered(false);
     }
   }
 
@@ -120,7 +122,7 @@ export function AuthContextProvider(props) {
       setError,
       setIsValidating,
       register,
-      isRegistred
+      isRegistered
     }}>
       { props.children }
     </AuthContext.Provider>

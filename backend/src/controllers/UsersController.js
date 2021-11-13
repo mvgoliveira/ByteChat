@@ -6,7 +6,7 @@ class UsersController {
     const usersService = new UsersService();
 
     try {
-      const user = await usersService.create(email, password, confirmPassword);
+      const user = await usersService.create(email.toLowerCase(), password, confirmPassword);
       return res.json({ user });
     } catch (error) {
       return res.status(400).json({ message: error.message });

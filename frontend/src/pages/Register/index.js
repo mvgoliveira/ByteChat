@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import {useHistory} from 'react-router';
 
@@ -16,9 +17,7 @@ export function Register() {
   const {
     register,
     clientData,
-    isValidating,
-    error,
-    isRegistred,
+    isRegistered,
     setError,
     setIsValidating
   } = useAuth();
@@ -36,11 +35,11 @@ export function Register() {
 
   useEffect(() => {
     
-    if (isRegistred) {
+    if (isRegistered) {
       history.push('/login');  
     }
 
-  }, [isRegistred]);
+  }, [isRegistered]);
   
   function handleChangeEmail(event) {
     setEmail(event.target.value)

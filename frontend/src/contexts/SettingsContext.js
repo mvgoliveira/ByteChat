@@ -3,7 +3,6 @@ import { createContext, useEffect, useState } from 'react';
 import {toast} from 'react-toastify';
 
 import { useAuth } from '../hooks/useAuth';
-import { useRoom } from '../hooks/useRoom';
 import { api } from '../services/api';
 
 export const SettingsContext = createContext({});
@@ -30,10 +29,6 @@ export function SettingsContextProvider(props) {
     addClientMediaStream,
     clientData
   } = useAuth();
-  
-  const {
-    setIsPrivateRoom
-  } = useRoom(roomCode);
 
   useEffect(() => {    
     async function getVideoTracks() {
