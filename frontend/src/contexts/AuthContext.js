@@ -91,6 +91,7 @@ export function AuthContextProvider(props) {
 
   async function register(email, password, confirmPassword) {
     try {
+      setIsValidating(true);
       const { data } = await api.post('/users', { email, password, confirmPassword });
 
       if (data) {
@@ -100,7 +101,7 @@ export function AuthContextProvider(props) {
     } catch (error) {
       toast.error("Não foi possível realizar o cadastro!");
       setError(true);
-      setIsValidating(true);
+      setIsValidating(false);
       setIsRegistered(false);
     }
   }
