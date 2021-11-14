@@ -40,6 +40,17 @@ export const NameModalContainer = styled.div`
   justify-content: center;
   border-radius: 8px;
 
+  #closeModalButton {
+    position: relative;
+    bottom: 15%;
+    left: 43%;
+    cursor: pointer;
+
+    &:active {
+      transform: scale(0.90);
+    }
+  }
+
   span {
     font: bold 1.6rem 'Poppins', sans-serif;
     margin-bottom: 30px;
@@ -61,6 +72,10 @@ export const NameModalContainer = styled.div`
       height: 50px;
       border-radius: 8px;
       cursor: ${props => props.isInputFill ? "pointer" : "not-allowed"};
+
+      &:active {
+        transform: ${props => props.isInputFill ? "scale(0.95)" : "scale(1)"};
+      }
     }
 
     input {
@@ -89,6 +104,11 @@ export const VideoModalContainer = styled.div`
   border-radius: 8px;
   padding: 50px;
 
+  #closeModalButton {
+    display: flex;
+    align-items: center;
+  }
+
   span {
     font: bold 1.8rem 'Poppins', sans-serif;
     margin-bottom: 15px;
@@ -99,6 +119,7 @@ export const VideoModalContainer = styled.div`
     width: 100%;
 
     #container-left {
+      
       #video-container {
         display: flex;
         flex-direction: column;
@@ -173,10 +194,15 @@ export const VideoModalContainer = styled.div`
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #284de2;
+            background: ${props => props.isVideoOpen ? "#284de2" : "#81899E"};
             width: 55px;
             height: 55px;
             border-radius: 8px;
+            cursor: ${props => props.isVideoOpen ? "pointer" : "not-allowed"};
+
+            &:active {
+              transform: ${props => props.isVideoOpen ? "scale(0.95)" : "scale(1)"};
+            }
           }
         }
       }
@@ -207,11 +233,22 @@ export const RoomTypeContainer = styled.div`
   border-radius: 8px;
 
   span {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font: bold 1.6rem 'Poppins', sans-serif;
     width: 100%;
-    padding-left: 50px;
+    padding: 0 50px;
     padding-top: 35px;
     padding-bottom: 35px;
+
+    svg {
+      cursor: pointer;
+    
+      &:active {
+        transform: scale(0.90);
+      }
+    }
   }
 
   #containerBottom {

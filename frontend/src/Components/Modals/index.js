@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import {FaMicrophoneSlash, FaVideo, FaVideoSlash} from "react-icons/fa";
+import {IoClose} from "react-icons/io5";
 import {MdNavigateNext} from 'react-icons/md';
 import {TiMicrophone} from "react-icons/ti"
 import Select from "react-select";
@@ -23,6 +24,10 @@ import { useAuth } from "../../hooks/useAuth";
 function NameModal({isOpen, isInputFill, children}) {
   const [isModalOpen, setIsModalOpen] = useState(isOpen);
 
+  const {
+    setIsSettingsModalOpen
+  } = useSettings();
+
   useEffect(() => {
     setIsModalOpen(isOpen);
   }, [isOpen]);
@@ -30,6 +35,7 @@ function NameModal({isOpen, isInputFill, children}) {
   return (
     <Container isOpen={isModalOpen}>
       <NameModalContainer isInputFill={isInputFill}>
+        <IoClose id="closeModalButton" onClick={() => setIsSettingsModalOpen(false)}/>
         <span> Como você quer ser chamado? </span>
         <div>
           {children}
@@ -46,9 +52,13 @@ function VideoModal({ isOpen, name, children }) {
     setIsModalOpen(isOpen);
   }, [isOpen]);
 
+  const { 
+    clientMediaStream
+  } = useAuth();
+
   return (
     <Container isOpen={isModalOpen}>
-      <VideoModalContainer>
+      <VideoModalContainer isVideoOpen={clientMediaStream ? true : false}>
         <span> Olá, {name} </span>
         <div id="controllers">
           {children}
@@ -58,10 +68,14 @@ function VideoModal({ isOpen, name, children }) {
   )
 }
 
-export function SettingsModal({ isOpen }) {
+export function SettingsModal() {
   const history = useHistory();
 
-  const [isNameModalOpen, setIsNameModalOpen] = useState(isOpen);
+  const {
+    isSettingsModalOpen,
+  } = useSettings();
+
+  const [isNameModalOpen, setIsNameModalOpen] = useState(isSettingsModalOpen);
   const [isVideoInputOpen, setIsVideoInputOpen] = useState(false);
 
   const {
@@ -86,13 +100,15 @@ export function SettingsModal({ isOpen }) {
   } = useAuth();
 
   useEffect(() => {
-    setIsNameModalOpen(isOpen);
-  }, [isOpen]);
+    setIsNameModalOpen(isSettingsModalOpen);
+  }, [isSettingsModalOpen]);
 
   function openVideoModal(event) {
     event.preventDefault();
-    setIsNameModalOpen(false);
-    setIsVideoInputOpen(true);
+    if (name !== "") {
+      setIsNameModalOpen(false);
+      setIsVideoInputOpen(true);
+    }
   }
 
   useEffect(() => {
@@ -174,16 +190,12 @@ export function SettingsModal({ isOpen }) {
   )
 }
 
-export function RoomTypeModal({ isOpen }) {
-  const [isRoomTypeModalOpen, setIsRoomTypeModalOpen] = useState(isOpen);
+export function RoomTypeModal() {
+  const {isRoomTypeModalOpen, setIsRoomTypeModalOpen} = useSettings();
 
   const {
     handleCreateRoom
   } = useSettings();
-
-  useEffect(() => {
-    setIsRoomTypeModalOpen(isOpen);
-  }, [isOpen]);
 
   function handleSendCreateRoom(isPrivate) {
     setIsRoomTypeModalOpen(false);
@@ -193,7 +205,7 @@ export function RoomTypeModal({ isOpen }) {
   return (
     <Container isOpen={isRoomTypeModalOpen}>
       <RoomTypeContainer>
-        <span>Escolha o tipo de sala</span>
+        <span>Escolha o tipo de sala <IoClose onClick={() => setIsRoomTypeModalOpen(!isRoomTypeModalOpen)}/></span>
         
         <div id="containerBottom">
           <section id="containerLeft">
