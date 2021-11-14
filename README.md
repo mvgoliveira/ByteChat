@@ -15,7 +15,7 @@ Este projeto usa as seguintes tecnologias:
 - [JWT](https://jwt.io)
 - [Bcrypt](https://github.com/dcodeIO/bcrypt.js#readme)
 
-**Hospedagem**: Para acessar o site hospeadado no netlify **[clique aqui]()**.
+**Hospedagem**: Para acessar o site hospeadado no netlify **[clique aqui](https://github.com/mvgoliveira/ByteChat)**[ainda não hospedado].
 
 ---
 
