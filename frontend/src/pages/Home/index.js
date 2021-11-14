@@ -13,16 +13,16 @@ import { toast } from 'react-toastify';
 
 export function Home() {
   const [isPublicIcon, setIsPublicIcon] = useState(true);
-  const [isRoomTypeModalOpen, setIsRoomTypeModalOpen] = useState(false);
 
   const history = useHistory();
 
   const {
-    isSettingsModalOpen,
     setRoomCode,
     roomCode,
     setName,
-    handleEnterRoom
+    handleEnterRoom,
+    setIsRoomTypeModalOpen,
+    setIsSettingsModalOpen
   } = useSettings();
 
   const {
@@ -47,13 +47,13 @@ export function Home() {
     } else {
       toast.error("Login é necessário");
     }
-    
   }
 
   useEffect(() => {
     setRoomCode("");
     setName("");
     removeClientName();
+    setIsSettingsModalOpen(false);
   }, []);
 
   useEffect(() => {
@@ -65,8 +65,8 @@ export function Home() {
 
   return (
     <Container isInputFill={roomCode !== "" ? true : false}>
-      <RoomTypeModal isOpen={isRoomTypeModalOpen}/>
-      <SettingsModal isOpen={isSettingsModalOpen}/>
+      <RoomTypeModal/>
+      <SettingsModal/>
 
       <header>
         <div id="header-left">
