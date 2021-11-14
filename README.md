@@ -6,7 +6,9 @@ ByteChat é uma aplicação Web de vídeo chamada desenvolvida como metodo de av
 
 ### :man_technologist: Sobre a aplicação
 
-O Case escolhido foi ...
+O Case escolhido foi **Aplicação web do tipo plataforma de vídeo chamada** onde deveria ser desenvolvido uma aplicação estilo Discord, Zoom, teams ou meet...
+
+A aplicação conta com um sistema de autenticação, criação de salas públicas e privadas, controle de acesso de usuários a salas privadas, e compartilhamento de vídeo e audio.
 
 Este projeto usa as seguintes tecnologias:
 
@@ -15,7 +17,7 @@ Este projeto usa as seguintes tecnologias:
 - [JWT](https://jwt.io)
 - [Bcrypt](https://github.com/dcodeIO/bcrypt.js#readme)
 
-**Hospedagem**: Para acessar o site hospeadado no netlify **[clique aqui](https://github.com/mvgoliveira/ByteChat)**[ainda não hospedado].
+**Hospedagem**: Para acessar o site hospeadado no netlify **[clique aqui](https://github.com/mvgoliveira/ByteChat)** [ainda não hospedado].
 
 ---
 
