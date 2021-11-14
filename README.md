@@ -48,7 +48,7 @@ Este projeto usa as seguintes tecnologias:
 ```
 
 É necessário adicionar as variáveis ambientes REACT_APP_TOKEN_SECRET [no frontend], MONGO_URL e TOKEN_SECRET [no backend].
-as variáveis TOKEN_SECRET são usados pelo jwt para assinar e verificar os tokens de usuário e a variável MONGO_URL é usado pelo mongoose para efetuar a conexão com o mongodb.
+as variáveis TOKEN_SECRET são usados pelo jwt para assinar e verificar os tokens de autenticação e a variável MONGO_URL é usado pelo mongoose para efetuar a conexão com o mongodb.
 
 <hr>
 
