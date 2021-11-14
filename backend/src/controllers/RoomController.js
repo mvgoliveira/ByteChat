@@ -3,7 +3,7 @@ import Chance from "chance";
 
 class RoomController {
   async create (req, res) {
-    const {adminId, isPrivate, usersAllowed} = req.body;
+    const {adminId, isPrivate} = req.body;
     
     const chance = new Chance();
     let roomCode = chance.string({ length: 10, casing: 'upper', alpha: true, numeric: true });
@@ -17,7 +17,7 @@ class RoomController {
     }
 
     try {
-      const room = await roomsService.create(roomCode, adminId, isPrivate, usersAllowed);
+      const room = await roomsService.create(roomCode, adminId, isPrivate);
       return res.json(room);
     } catch (error) {
       return res.status(400).json({ message: error.message })

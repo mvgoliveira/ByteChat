@@ -2,7 +2,7 @@ import { RoomModel } from "../models/Room";
 
 class RoomsService {
   
-  async create (roomCode, adminId, isPrivate, usersAllowed) {
+  async create (roomCode, adminId, isPrivate) {
     const RoomExists = await RoomModel.findOne({ roomCode });
 
     if (RoomExists) {
@@ -12,8 +12,7 @@ class RoomsService {
     const room = await RoomModel.create({
       adminId,
       roomCode,
-      private: isPrivate,
-      usersAllowed
+      private: isPrivate
     });
 
     return room; 

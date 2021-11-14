@@ -21,6 +21,7 @@ export function SettingsContextProvider(props) {
   const [videoChangeSelected, setVideoChangeSelected] = useState({});
 
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const [isRoomTypeModalOpen, setIsRoomTypeModalOpen] = useState(false);
 
   const [isComplete, setIsComplete] = useState(false);
 
@@ -143,7 +144,7 @@ export function SettingsContextProvider(props) {
 
   async function handleCreateRoom(isPrivate) {
     try {
-      const {data} = await api.post("/room", {isPrivate, adminId: clientData.id, usersAllowed: [clientData.email]});
+      const {data} = await api.post("/room", {isPrivate, adminId: clientData.id});
       openSettingsModal(data.roomCode);
     } catch (error) {
       toast.error("Server Error");
@@ -174,7 +175,9 @@ export function SettingsContextProvider(props) {
       handleEnterRoom,
       isValidating,
       error,
-      handleCreateRoom
+      handleCreateRoom,
+      isRoomTypeModalOpen,
+      setIsRoomTypeModalOpen
     }}>
       { props.children }
     </SettingsContext.Provider>

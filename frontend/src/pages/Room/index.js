@@ -64,17 +64,18 @@ export function Room({match}) {
   }, []);
 
   useEffect(() => {
-    if (!clientData) {
+    if (!clientData && isRoomPrivate) {
       toast.error("Login é necessário!");
       history.push('/');
     }
-    if (isRoomPrivate && roomUsersAllowed) {
-      if (!roomUsersAllowed.find(user => clientData.email === user)) {
+
+    if (isRoomPrivate && roomUsersAllowed && clientData && roomAdminId) {
+      if (clientData.id !== roomAdminId && !roomUsersAllowed.find(user => clientData.email === user)) {
         toast.error("Entrada negada!");
         history.push('/');
       }
     }
-  }, [roomUsersAllowed, isRoomPrivate, clientData])
+  }, [roomUsersAllowed, isRoomPrivate, clientData, roomAdminId])
   
   useEffect(() => {
     if (roomCode && !clientUsername) {
@@ -159,18 +160,16 @@ export function Room({match}) {
     
     navigator.permissions.query({ name: 'clipboard-write' }).then(result => {
       if (result.state === 'granted') {
-          var blob = new Blob([room_code], {type: 'text/plain'});
-          var item = new ClipboardItem({'text/plain': blob});
-          navigator.clipboard.write([item]).then(function() {
-            toast.success("Código copiado", {
-              position: "bottom-right",
-              pauseOnHover: false
-            });
-          }, function(error) {
-            toast.error("erro");
+        var blob = new Blob([room_code], {type: 'text/plain'});
+        var item = new ClipboardItem({'text/plain': blob});
+        navigator.clipboard.write([item]).then(function() {
+          toast.success("Código copiado", {
+            position: "bottom-right",
+            pauseOnHover: false
           });
-      } else {
-        console.log("clipboard-permissoin not granted: " + result);
+        }, function(error) {
+          toast.error("erro");
+        });
       }
     });
   }
@@ -201,7 +200,7 @@ export function Room({match}) {
                       onChange={handleChange}
                       onInputChange={handleInputChange}
                       onKeyDown={handleKeyDown}
-                      placeholder="Digite o email e pressione enter..."
+                      placeholder="Digite um email e pressione enter..."
                       value={usersAllowed}
                       id="Select-control" 
                     />
