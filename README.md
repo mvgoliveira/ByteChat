@@ -6,7 +6,7 @@ ByteChat é uma aplicação Web de vídeo chamada desenvolvida como metodo de av
 
 ### :man_technologist: Sobre a aplicação
 
-O Case escolhido foi **Aplicação web do tipo plataforma de vídeo chamada** onde deveria ser desenvolvido uma aplicação estilo Discord, Zoom, teams ou meet...
+O Case escolhido foi **Aplicação web do tipo plataforma de vídeo chamada** onde deveria ser desenvolvido uma aplicação estilo Discord, Zoom, teams e meet...
 
 A aplicação conta com um sistema de autenticação, criação de salas públicas e privadas, controle de acesso de usuários a salas privadas, e compartilhamento de vídeo e audio.
 
