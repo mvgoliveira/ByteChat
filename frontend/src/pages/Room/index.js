@@ -187,7 +187,7 @@ export function Room({match}) {
             </div>
 
             <div id="containerMiddle">
-              {(isRoomPrivate && roomAdminId === clientData.id) && (
+              {( clientData && isRoomPrivate && roomAdminId === clientData.id) && (
                 <>
                   <p>usuários permitidos</p>
                   <div id="UsersSelectContainer">
